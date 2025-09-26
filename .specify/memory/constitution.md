@@ -1,50 +1,60 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+SYNC IMPACT REPORT
+Version change: N/A → 1.0.0
+Modified principles: N/A (initial creation)
+Added sections: Development Workflow, Quality Gates
+Removed sections: N/A
+Templates requiring updates:
+  ✅ .specify/templates/plan-template.md (version reference updated, agent name updated)
+  ✅ .specify/memory/constitution.md (this file)
+Follow-up TODOs: None
+-->
+
+# Coco Calculator Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Feature-First Development
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+Every feature MUST follow the specify framework workflow: /specify → /plan → /tasks → /implement. Features start as specifications, progress through planning and task generation, then implementation. All features must be self-contained, independently testable, and documented with clear purpose.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. Test-Driven Development (NON-NEGOTIABLE)
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+TDD is mandatory: Tests written → User approved → Tests fail → Then implement. Red-Green-Refactor cycle strictly enforced. Contract tests must be written before any implementation begins. Integration tests required for all user scenarios.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### III. Specification-Driven Architecture
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+All features MUST begin with a complete specification document. Specifications focus on WHAT users need and WHY, avoiding HOW implementation details. Every requirement must be testable and unambiguous. Specifications serve as the single source of truth for feature scope.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### IV. Task-Based Implementation
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+Implementation follows generated task lists with clear dependencies and parallel execution opportunities. Tasks are categorized by phase: Setup → Tests → Models → Services → Endpoints → Polish. Each task specifies exact file paths and execution order.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### V. Constitution Compliance
+
+All development work MUST pass constitution checks before proceeding. Complexity must be justified with documented rationale. The constitution supersedes all other practices and requires formal amendment procedures for changes.
+
+## Development Workflow
+
+### Feature Development Process
+
+1. **Specification**: Create feature spec using /specify command
+2. **Planning**: Generate implementation plan using /plan command
+3. **Task Generation**: Create task list using /tasks command
+4. **Implementation**: Execute tasks following TDD principles
+5. **Validation**: Run tests, execute quickstart scenarios, performance validation
+
+### Quality Gates
+
+- Initial Constitution Check: Must pass before Phase 0 research
+- Post-Design Constitution Check: Must pass before implementation
+- All NEEDS CLARIFICATION markers must be resolved
+- Complexity deviations must be documented with justification
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other development practices. All PRs and reviews must verify compliance with constitutional principles. Complexity must be justified with documented rationale. Use the generated agent-specific guidance files for runtime development guidance.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Amendment Procedure**: Changes to this constitution require documentation of impact, approval from project maintainers, and migration plan for dependent templates and processes.
+
+**Version**: 1.0.0 | **Ratified**: 2025-01-27 | **Last Amended**: 2025-01-27
