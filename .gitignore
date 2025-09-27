@@ -1,0 +1,9 @@
+# vite pr
+.vite
+
+# node
+node_modules
+
+# dist
+dist
+
