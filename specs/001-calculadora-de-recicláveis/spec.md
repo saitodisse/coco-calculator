@@ -95,6 +95,11 @@ As a user, I want to enter the weight of different recyclable materials (Paper, 
 - **FR-005**: The system MUST automatically load the saved values from `localStorage` into the input fields when the page is loaded.
 - **FR-006**: The system must use the specific conversion factors for calculations as detailed below.
 - **FR-007**: The system MUST prevent or handle non-positive (zero or negative) and non-numeric inputs gracefully.
+- **FR-008**: The system MUST display a stacked bar chart for each primary environmental metric.
+  - Each segment of the bar MUST represent the contribution of a specific material (Papel, Alumínio, Plástico, Vidro) to the total.
+  - The chart MUST update in real-time as the user enters or changes input values.
+  - The total value for the metric MUST be clearly displayed alongside the chart.
+  - _(Recommended)_ The chart SHOULD be interactive, showing a tooltip with the material's specific value and percentage contribution on hover.
 
 ### Calculation Factors
 
@@ -193,8 +198,38 @@ Esta seção detalha os cálculos para converter as métricas de impacto primár
 
 - **RecyclingInput**: Represents the user's raw input.
   - Attributes: `paperInKg`, `plasticInKg`, `glassInKg`, `aluminumInKg`.
-- **EnvironmentalSavings**: Represents the calculated results.
-  - Attributes: `virginMaterialSaved_t`, `energySaved_kWh`, `energySavings_BRL`, `ghgReduction_tCO2e`, `carbonCredits_BRL`, `waterSaved_kl`, `waterSavings_BRL`, `forestAreaSaved_ha_year`, `bauxiteSaved_t`, `bauxiteSavings_BRL`, `oilSaved_barrels`, `oilSavings_BRL`, `sandSaved_t`, `sandSavings_BRL`, `treesSaved_units`, `landfillCostSavings_BRL`, `equiv_home_energy_days`, `equiv_ev_km`, `equiv_phone_charges`, `equiv_showers`, `equiv_gas_car_km`.
+- **EnvironmentalSavings**: Represents the calculated results. Each metric within this entity will be an object structured to support charting, containing the total value and a breakdown by material.
+
+#### Data Structure for Charting
+
+Each calculated metric will follow the JSON structure below. This structure is designed to provide all necessary data for rendering a stacked bar chart and its interactive elements for each primary environmental metric.
+
+```json
+{
+  "ghgReduction_tCO2e": {
+    "label": "Redução de GEE",
+    "total": 0.519,
+    "unit": "tCO2e",
+    "sources": [
+      { "material": "Papel", "value": 0.0292, "percentage": 5.6 },
+      { "material": "Alumínio", "value": 0.4591, "percentage": 88.5 },
+      { "material": "Plástico", "value": 0.03, "percentage": 5.8 },
+      { "material": "Vidro", "value": 0, "percentage": 0 }
+    ]
+  },
+  "waterSaved_kl": {
+    "label": "Economia de Água",
+    "total": 2.599,
+    "unit": "kl",
+    "sources": [
+      { "material": "Papel", "value": 2.3, "percentage": 88.5 },
+      { "material": "Alumínio", "value": 0.199, "percentage": 7.7 },
+      { "material": "Plástico", "value": 0.1, "percentage": 3.8 },
+      { "material": "Vidro", "value": 0, "percentage": 0 }
+    ]
+  }
+}
+```
 
 ---
 
