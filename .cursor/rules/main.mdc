@@ -9,3 +9,4 @@ Verifique as especificações em `specs/001-calculadora-de-recicláveis`
 Ao perceber que algo pode ser melhorado, corrija-o mas sempre iniciando nas documentações e testes antes de fazer alterações no código. conforme `.specify/memory/constitution.md`
 Use sempre o português brasileiro.
 Ao finalizar uma tarefa, verifique o build com `pnpm build` e o teste com `pnpm test`, corrija os erros.
+Sempre use o MCP Context7: `use context7` para verificar bibliotecas externas e suas ultimas versões das documentações
