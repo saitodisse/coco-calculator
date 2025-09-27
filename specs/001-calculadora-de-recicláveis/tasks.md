@@ -101,6 +101,26 @@
     - [x] **T033.1**: Atualizar importações em `tests/contract/calculator.test.ts` para usar `Material` como enum.
     - [x] **T033.2**: Verificar e corrigir todos os testes para usar nova estrutura.
 
+## Fase 3.10: Funcionalidades de Referências
+
+- [x] **T034**: Criar componente `ReferencesSection.tsx` para exibir todas as referências únicas.
+    - [x] **T034.1**: Implementar coleta de referências de todas as métricas calculadas.
+    - [x] **T034.2**: Implementar deduplicação de referências por URL.
+    - [x] **T034.3**: Criar interface de exibição com nome, citação e link da fonte.
+    - [x] **T034.4**: Adicionar ID "referencias" para navegação.
+- [x] **T035**: Atualizar `MetricCard.tsx` para incluir links de referência.
+    - [x] **T035.1**: Adicionar botão "Referências" quando há fontes disponíveis.
+    - [x] **T035.2**: Implementar scroll suave para seção de referências.
+    - [x] **T035.3**: Adicionar ícone de link externo.
+- [x] **T036**: Integrar seção de referências na `CalculatorPage.tsx`.
+    - [x] **T036.1**: Adicionar componente `ReferencesSection` ao final da página.
+    - [x] **T036.2**: Posicionar após as visualizações e antes do footer.
+- [x] **T037**: Testar funcionalidades de referências.
+    - [x] **T037.1**: Verificar se links de referência funcionam corretamente.
+    - [x] **T037.2**: Verificar se scroll suave funciona.
+    - [x] **T037.3**: Verificar se referências são exibidas corretamente.
+    - [x] **T037.4**: Verificar se links externos abrem em nova aba.
+
 ## Dependências
 
 - **T001-T006** (Configuração) devem ser concluídas antes de todas as outras tarefas.
@@ -112,6 +132,7 @@
 - **T023-T028** são um novo conjunto de features e podem ser trabalhados após a conclusão do MVP inicial.
 - **T029** é uma tarefa de documentação e pode ser trabalhada independentemente das novas features de UI.
 - **T030-T033** (Refatoração de Tipos e Referências) são tarefas de melhoria arquitetural que podem ser executadas em paralelo após a conclusão do MVP.
+- **T034-T037** (Funcionalidades de Referências) são tarefas de melhoria de UX que podem ser executadas após a conclusão do MVP e da refatoração de tipos.
 
 ## Exemplo Paralelo
 

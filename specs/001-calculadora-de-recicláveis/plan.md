@@ -188,6 +188,37 @@ _Estas fases estão além do escopo do comando /plan_
 **Fase 4**: Implementação (executar tasks.md seguindo os princípios constitucionais)
 **Fase 5**: Validação (rodar testes, executar quickstart.md, validação de desempenho)
 
+## Fase 7: Funcionalidades de Referências
+
+_Esta fase foi implementada para melhorar a rastreabilidade e transparência dos cálculos_
+
+### Implementação de Referências
+
+A funcionalidade de referências foi implementada com os seguintes componentes:
+
+1. **ReferencesSection Component**: Um componente dedicado que coleta e exibe todas as referências únicas utilizadas nas métricas calculadas.
+
+2. **Links de Referência nos Cards**: Cada MetricCard agora inclui um link "Referências" quando há fontes associadas, permitindo navegação direta para a seção de referências.
+
+3. **Navegação Suave**: Implementação de scroll suave para melhorar a experiência do usuário ao navegar entre métricas e referências.
+
+4. **Deduplicação Automática**: Sistema que automaticamente remove referências duplicadas, exibindo apenas uma instância de cada fonte única.
+
+5. **Links Externos**: Referências com URLs válidas são apresentadas como links clicáveis que abrem em nova aba.
+
+### Arquivos Modificados
+
+- `src/components/calculator/ReferencesSection.tsx` (novo)
+- `src/components/calculator/MetricCard.tsx` (atualizado)
+- `src/pages/CalculatorPage.tsx` (atualizado)
+
+### Benefícios
+
+- **Transparência**: Usuários podem verificar as fontes dos cálculos
+- **Credibilidade**: Referências acadêmicas e científicas aumentam a confiança
+- **Rastreabilidade**: Cada métrica tem suas fontes claramente identificadas
+- **Acessibilidade**: Links diretos para fontes originais facilitam verificação
+
 ## Rastreamento de Complexidade
 
 _Preencher SOMENTE se a Verificação da Constituição tiver violações que devem ser justificadas_
@@ -209,6 +240,7 @@ _Esta lista de verificação é atualizada durante o fluxo de execução_
 - [x] Fase 4: Implementação completa
 - [x] Fase 5: Validação aprovada
 - [x] Fase 6: Refatoração de tipos e referências completa
+- [x] Fase 7: Implementação de funcionalidades de referências completa
 
 **Status do Portão**:
 

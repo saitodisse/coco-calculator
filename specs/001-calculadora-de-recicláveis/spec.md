@@ -56,6 +56,8 @@ Como um usuário, eu quero inserir o peso de diferentes materiais recicláveis (
 1.  **Dado** que a página da calculadora está aberta, **Quando** eu insiro "100" no campo de entrada "Papel", **Então** o sistema calcula e exibe instantaneamente todas as 21 métricas de economia com base em 100kg de papel reciclado.
 2.  **Dado** que eu inseri valores para vários materiais, **Quando** eu copio e colo a URL em uma nova aba do navegador, **Então** os campos de entrada mantêm os valores que eu inseri anteriormente.
 3.  **Dado** que alguns campos de entrada já estão preenchidos, **Quando** eu atualizo o valor no campo "Alumínio", **Então** todas as métricas exibidas são atualizadas imediatamente para refletir o novo cálculo total.
+4.  **Dado** que a calculadora exibe métricas com referências, **Quando** eu clico no link "Referências" em qualquer card de métrica, **Então** a página faz scroll suave para a seção de referências ao final.
+5.  **Dado** que a calculadora exibe métricas, **Quando** eu rolo até o final da página, **Então** vejo uma seção "Referências e Fontes" listando todas as fontes utilizadas nos cálculos.
 
 ### Casos Extremos
 
@@ -106,6 +108,14 @@ Como um usuário, eu quero inserir o peso de diferentes materiais recicláveis (
     - O gráfico DEVE ser atualizado em tempo real à medida que o usuário insere ou altera os valores de entrada.
     - O valor total da métrica DEVE ser exibido claramente ao lado do gráfico.
     - _(Recomendado)_ O gráfico DEVERIA ser interativo, mostrando uma dica de ferramenta com o valor específico do material e a contribuição percentual ao passar o mouse.
+- **RF-012**: O sistema DEVE exibir uma seção de referências ao final da calculadora contendo todas as fontes utilizadas para os cálculos.
+    - A seção DEVE listar todas as referências únicas utilizadas em todas as métricas calculadas.
+    - Cada referência DEVE incluir o nome da fonte, citação acadêmica e link (quando disponível).
+    - A seção DEVE ser identificada com o ID "referencias" para navegação.
+- **RF-013**: Cada card de métrica DEVE incluir um link "Referências" quando houver fontes disponíveis.
+    - O link DEVE fazer scroll suave para a seção de referências ao final da página.
+    - O link DEVE ser exibido apenas quando a métrica possui referências associadas.
+    - O link DEVE ter um ícone indicativo de link externo.
 
 ### Fatores de Cálculo
 
@@ -255,6 +265,20 @@ Cada métrica calculada inclui uma propriedade `references` que contém um array
 
 As referências são centralizadas no arquivo `referencias/referencias_gerais.ts` e são automaticamente associadas a cada métrica durante o cálculo, garantindo que cada resultado tenha sua rastreabilidade documentada.
 
+### Funcionalidades de Referências
+
+O sistema implementa as seguintes funcionalidades relacionadas às referências:
+
+1. **Seção de Referências**: Uma seção dedicada ao final da calculadora que lista todas as fontes únicas utilizadas nos cálculos, organizadas de forma clara e acessível.
+
+2. **Links de Referência nos Cards**: Cada card de métrica que possui referências associadas exibe um link "Referências" que permite navegação direta para a seção de referências.
+
+3. **Navegação Suave**: O sistema implementa scroll suave para melhorar a experiência do usuário ao navegar entre as métricas e suas referências.
+
+4. **Deduplicação de Referências**: O sistema automaticamente remove referências duplicadas, exibindo apenas uma instância de cada fonte única.
+
+5. **Links Externos**: Referências com URLs válidas são apresentadas como links clicáveis que abrem em nova aba, facilitando o acesso às fontes originais.
+
 ---
 
 ## Checklist de Revisão e Aceitação
@@ -270,8 +294,23 @@ _GATE: Verificações automatizadas executadas durante a execução do main()_
 
 ### Completude dos Requisitos
 
-- [ ] Nenhum marcador [PRECISA DE ESCLARECIMENTO] ou [PRECISA DE PREENCHIMENTO] permanece
+- [x] Nenhum marcador [PRECISA DE ESCLARECIMENTO] ou [PRECISA DE PREENCHIMENTO] permanece
 - [x] Requisitos são testáveis e inequívocos
 - [x] Critérios de sucesso são mensuráveis
 - [x] Escopo está claramente delimitado
 - [x] Dependências e premissas identificadas (fontes de cálculo)
+
+### Funcionalidades Implementadas
+
+- [x] Sistema de cálculo de 21 métricas ambientais e econômicas
+- [x] Interface de entrada para 4 tipos de materiais (Papel, Plástico, Vidro, Alumínio)
+- [x] Cálculos em tempo real conforme o usuário digita
+- [x] Persistência de dados via parâmetros de URL
+- [x] Múltiplos modos de visualização (Dashboard, Cards, Tabela)
+- [x] Sistema de temas (claro, escuro, sistema)
+- [x] Gráficos de barras empilhadas para métricas primárias
+- [x] Seção de referências com fontes científicas
+- [x] Links de referência em cada métrica
+- [x] Navegação suave entre métricas e referências
+- [x] Deduplicação automática de referências
+- [x] Links externos para fontes originais

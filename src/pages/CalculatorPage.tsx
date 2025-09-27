@@ -11,6 +11,7 @@ import type { ViewMode } from "@/lib/types";
 import { CardsView } from "@/components/calculator/CardsView";
 import { DashboardView } from "@/components/calculator/DashboardView";
 import { TableView } from "@/components/calculator/TableView";
+import { ReferencesSection } from "@/components/calculator/ReferencesSection";
 
 const viewModes = ["dashboard", "cards", "table"] as const;
 
@@ -80,6 +81,9 @@ export function CalculatorPage() {
 				)}
 				{viewMode === "cards" && <CardsView savings={savings} />}
 				{viewMode === "table" && <TableView savings={savings} />}
+
+				{/* References Section */}
+				<ReferencesSection savings={savings} />
 
 				{/* Footer */}
 				<div className="border-t pt-8 text-center text-sm text-muted-foreground">

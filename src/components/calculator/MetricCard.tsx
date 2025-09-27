@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ExternalLink } from "lucide-react";
 import type { ChartableMetric } from "@/lib/types";
 
 interface MetricCardProps {
@@ -22,12 +23,31 @@ export function MetricCard({ metric }: MetricCardProps) {
 		}
 	};
 
+	const scrollToReferences = () => {
+		const referencesSection = document.getElementById("referencias");
+		if (referencesSection) {
+			referencesSection.scrollIntoView({ behavior: "smooth" });
+		}
+	};
+
 	return (
 		<Card className="w-full">
 			<CardHeader className="pb-3">
-				<CardTitle className="text-lg font-semibold">
-					{metric.label}
-				</CardTitle>
+				<div className="flex items-center justify-between">
+					<CardTitle className="text-lg font-semibold">
+						{metric.label}
+					</CardTitle>
+					{metric.references && metric.references.length > 0 && (
+						<button
+							onClick={scrollToReferences}
+							className="flex items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-primary"
+							title="Ver referências"
+						>
+							Referências
+							<ExternalLink className="h-3 w-3" />
+						</button>
+					)}
+				</div>
 			</CardHeader>
 			<CardContent>
 				<div className="space-y-3">
