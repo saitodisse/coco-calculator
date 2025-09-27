@@ -1,0 +1,11 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+Sempre leia o arquivo `.specify/memory/constitution.md` antes de executar uma tarefa.
+Verifique as especificações em `specs/001-calculadora-de-recicláveis`
+Ao perceber que algo pode ser melhorado, corrija-o mas sempre iniciando nas documentações e testes antes de fazer alterações no código. conforme `.specify/memory/constitution.md`
+Use sempre o português brasileiro.
+Ao finalizar uma tarefa, verifique o build com `pnpm build` e o teste com `pnpm test`, corrija os erros.

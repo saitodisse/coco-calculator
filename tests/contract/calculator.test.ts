@@ -174,6 +174,8 @@ describe("Calculator Contract Tests", () => {
 		const calculateSavings: CalculateSavings = (
 			input: RecyclingInput
 		): EnvironmentalSavings => {
+			// Use input to avoid unused variable warning
+			console.log("Input received:", input);
 			throw new Error("Function not implemented yet");
 		};
 
