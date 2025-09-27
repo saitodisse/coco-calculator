@@ -69,7 +69,7 @@ As a user, I want to enter the weight of different recyclable materials (Paper, 
 
 - **FR-001**: The system MUST provide separate input fields for 'Papel', 'Plástico', 'Vidro', and 'Alumínio'.
 - **FR-002**: All inputs MUST accept numeric values representing kilograms.
-- **FR-003**: The system MUST calculate and display the following 16 metrics in real-time as the user types:
+- **FR-003**: The system MUST calculate and display the following 21 metrics in real-time as the user types:
   1.  Substituição de Materia Virgem (t)
   2.  Substituição Energética (kWh)
   3.  Valor Equivalente à Economia de Energia (R$)
@@ -86,6 +86,11 @@ As a user, I want to enter the weight of different recyclable materials (Paper, 
   14. Valor Equivalente à Economia de Areia (R$)
   15. Economia de árvores (un.)
   16. Valor Economia de Custo de Aterramento (R$)
+  17. **(Equivalente)** Energia para uma casa por X dias
+  18. **(Equivalente)** Quilômetros em um carro elétrico
+  19. **(Equivalente)** Cargas de bateria de celular
+  20. **(Equivalente)** Banhos de 10 minutos
+  21. **(Equivalente)** Quilômetros de carro a gasolina evitados
 - **FR-004**: The system MUST save the values entered by the user to the browser's `localStorage`.
 - **FR-005**: The system MUST automatically load the saved values from `localStorage` into the input fields when the page is loaded.
 - **FR-006**: The system must use the specific conversion factors for calculations as detailed below.
@@ -165,12 +170,31 @@ Based on the information provided for glass. Metrics not listed are considered n
 - **Economia de Bauxita (t)**: 0
 - **Economia de árvores (un.)**: 0
 
+### Fatores de Cálculo Criativos (Métricas de Equivalência)
+
+Esta seção detalha os cálculos para converter as métricas de impacto primário em equivalentes do dia a dia, tornando os resultados mais compreensíveis e impactantes para o usuário.
+
+#### Métricas por Material (per kg)
+
+- **Papel e Papelão**:
+  - **Energia para uma casa (dias)**: `input_kg * 0.688` (Base: 5 kWh/dia por residência)
+  - **Banhos de 10 minutos (un.)**: `input_kg * 0.255` (Base: 90 litros/banho)
+  - **Km de carro a gasolina evitados (km)**: `input_kg * 2.43` (Base: 0.12 kgCO2e/km)
+- **Alumínio**:
+  - **Km em carro elétrico (km)**: `input_kg * 82.35` (Base: 0.17 kWh/km)
+  - **Km de carro a gasolina evitados (km)**: `input_kg * 76.5` (Base: 0.12 kgCO2e/km)
+- **Plástico**:
+  - **Km de carro a gasolina evitados (km)**: `input_kg * 12.5` (Base: 0.12 kgCO2e/km)
+- **Vidro**:
+  - **Cargas de bateria de celular (un.)**: `input_kg * 97` (Base: 0.015 kWh/carga)
+  - **Km de carro a gasolina evitados (km)**: `input_kg * 1.0` (Base: 0.12 kgCO2e/km)
+
 ### Key Entities _(include if feature involves data)_
 
 - **RecyclingInput**: Represents the user's raw input.
   - Attributes: `paperInKg`, `plasticInKg`, `glassInKg`, `aluminumInKg`.
 - **EnvironmentalSavings**: Represents the calculated results.
-  - Attributes: `virginMaterialSaved_t`, `energySaved_kWh`, `energySavings_BRL`, `ghgReduction_tCO2e`, `carbonCredits_BRL`, `waterSaved_kl`, `waterSavings_BRL`, `forestAreaSaved_ha_year`, `bauxiteSaved_t`, `bauxiteSavings_BRL`, `oilSaved_barrels`, `oilSavings_BRL`, `sandSaved_t`, `sandSavings_BRL`, `treesSaved_units`, `landfillCostSavings_BRL`.
+  - Attributes: `virginMaterialSaved_t`, `energySaved_kWh`, `energySavings_BRL`, `ghgReduction_tCO2e`, `carbonCredits_BRL`, `waterSaved_kl`, `waterSavings_BRL`, `forestAreaSaved_ha_year`, `bauxiteSaved_t`, `bauxiteSavings_BRL`, `oilSaved_barrels`, `oilSavings_BRL`, `sandSaved_t`, `sandSavings_BRL`, `treesSaved_units`, `landfillCostSavings_BRL`, `equiv_home_energy_days`, `equiv_ev_km`, `equiv_phone_charges`, `equiv_showers`, `equiv_gas_car_km`.
 
 ---
 
