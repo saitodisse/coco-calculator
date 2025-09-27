@@ -1,56 +1,56 @@
 ---
-description: Execute the implementation plan by processing and executing all tasks defined in tasks.md
+description: Executa o plano de implementação processando e executando todas as tarefas definidas em tasks.md
 ---
 
-The user input can be provided directly by the agent or as a command argument - you **MUST** consider it before proceeding with the prompt (if not empty).
+A entrada do usuário pode ser fornecida diretamente pelo agente ou como um argumento de comando - você **DEVE** considerá-la antes de prosseguir com o prompt (se não estiver vazia).
 
-User input:
+Entrada do usuário:
 
 $ARGUMENTS
 
-1. Run `.specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks` from repo root and parse FEATURE_DIR and AVAILABLE_DOCS list. All paths must be absolute.
+1. Execute `.specify/scripts/bash/check-prerequisites.sh --json --require-tasks --include-tasks` da raiz do repositório e analise FEATURE_DIR e a lista AVAILABLE_DOCS. Todos os caminhos devem ser absolutos.
 
-2. Load and analyze the implementation context:
-    - **REQUIRED**: Read tasks.md for the complete task list and execution plan
-    - **REQUIRED**: Read plan.md for tech stack, architecture, and file structure
-    - **IF EXISTS**: Read data-model.md for entities and relationships
-    - **IF EXISTS**: Read contracts/ for API specifications and test requirements
-    - **IF EXISTS**: Read research.md for technical decisions and constraints
-    - **IF EXISTS**: Read quickstart.md for integration scenarios
+2. Carregue e analise o contexto de implementação:
+    - **OBRIGATÓRIO**: Leia tasks.md para a lista completa de tarefas e plano de execução
+    - **OBRIGATÓRIO**: Leia plan.md para a pilha de tecnologia, arquitetura e estrutura de arquivos
+    - **SE EXISTIR**: Leia data-model.md para entidades e relacionamentos
+    - **SE EXISTIR**: Leia contracts/ para especificações de API e requisitos de teste
+    - **SE EXISTIR**: Leia research.md para decisões e restrições técnicas
+    - **SE EXISTIR**: Leia quickstart.md para cenários de integração
 
-3. Parse tasks.md structure and extract:
-    - **Task phases**: Setup, Tests, Core, Integration, Polish
-    - **Task dependencies**: Sequential vs parallel execution rules
-    - **Task details**: ID, description, file paths, parallel markers [P]
-    - **Execution flow**: Order and dependency requirements
+3. Analise a estrutura de tasks.md e extraia:
+    - **Fases da tarefa**: Configuração, Testes, Núcleo, Integração, Polimento
+    - **Dependências da tarefa**: Regras de execução sequencial vs paralela
+    - **Detalhes da tarefa**: ID, descrição, caminhos de arquivo, marcadores paralelos [P]
+    - **Fluxo de execução**: Ordem e requisitos de dependência
 
-4. Execute implementation following the task plan:
-    - **Phase-by-phase execution**: Complete each phase before moving to the next
-    - **Respect dependencies**: Run sequential tasks in order, parallel tasks [P] can run together
-    - **Follow TDD approach**: Execute test tasks before their corresponding implementation tasks
-    - **File-based coordination**: Tasks affecting the same files must run sequentially
-    - **Validation checkpoints**: Verify each phase completion before proceeding
+4. Execute a implementação seguindo o plano de tarefas:
+    - **Execução fase a fase**: Conclua cada fase antes de passar para a próxima
+    - **Respeite as dependências**: Execute tarefas sequenciais em ordem, tarefas paralelas [P] podem ser executadas juntas
+    - **Siga a abordagem TDD**: Execute tarefas de teste antes de suas tarefas de implementação correspondentes
+    - **Coordenação baseada em arquivos**: Tarefas que afetam os mesmos arquivos devem ser executadas sequencialmente
+    - **Pontos de verificação de validação**: Verifique a conclusão de cada fase antes de prosseguir
 
-5. Implementation execution rules:
-    - **Setup first**: Initialize project structure, dependencies, configuration
-    - **Tests before code**: If you need to write tests for contracts, entities, and integration scenarios
-    - **Core development**: Implement models, services, CLI commands, endpoints
-    - **Integration work**: Database connections, middleware, logging, external services
-    - **Polish and validation**: Unit tests, performance optimization, documentation
+5. Regras de execução da implementação:
+    - **Configuração primeiro**: Inicialize a estrutura do projeto, dependências, configuração
+    - **Testes antes do código**: Se você precisar escrever testes para contratos, entidades e cenários de integração
+    - **Desenvolvimento principal**: Implemente modelos, serviços, comandos CLI, endpoints
+    - **Trabalho de integração**: Conexões de banco de dados, middleware, logging, serviços externos
+    - **Polimento e validação**: Testes unitários, otimização de desempenho, documentação
 
-6. Progress tracking and error handling:
-    - Report progress after each completed task
-    - Halt execution if any non-parallel task fails
-    - For parallel tasks [P], continue with successful tasks, report failed ones
-    - Provide clear error messages with context for debugging
-    - Suggest next steps if implementation cannot proceed
-    - **IMPORTANT** For completed tasks, make sure to mark the task off as [X] in the tasks file.
+6. Acompanhamento do progresso e tratamento de erros:
+    - Relate o progresso após cada tarefa concluída
+    - Interrompa a execução se qualquer tarefa não paralela falhar
+    - Para tarefas paralelas [P], continue com as tarefas bem-sucedidas, relate as que falharam
+    - Forneça mensagens de erro claras com contexto para depuração
+    - Sugira os próximos passos se a implementação não puder prosseguir
+    - **IMPORTANTE** Para tarefas concluídas, certifique-se de marcar a tarefa como [X] no arquivo de tarefas.
 
-7. Completion validation:
-    - Verify all required tasks are completed
-    - Check that implemented features match the original specification
-    - Validate that tests pass and coverage meets requirements
-    - Confirm the implementation follows the technical plan
-    - Report final status with summary of completed work
+7. Validação da conclusão:
+    - Verifique se todas as tarefas necessárias foram concluídas
+    - Verifique se os recursos implementados correspondem à especificação original
+    - Valide se os testes passam e a cobertura atende aos requisitos
+    - Confirme se a implementação segue o plano técnico
+    - Relate o status final com um resumo do trabalho concluído
 
-Note: This command assumes a complete task breakdown exists in tasks.md. If tasks are incomplete or missing, suggest running `/tasks` first to regenerate the task list.
+Nota: Este comando assume que existe uma divisão completa de tarefas em tasks.md. Se as tarefas estiverem incompletas ou ausentes, sugira executar `/tasks` primeiro para regenerar a lista de tarefas.
