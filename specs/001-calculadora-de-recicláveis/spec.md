@@ -5,7 +5,7 @@
 **Status**: Draft
 **Input**: User description: "calculadora de recicláveis
 
-Sistema web simples para calcular o quanto que a reciclagem de materiais como: Papel, Plastico, Vidro e Metal podem economizar em:
+Sistema web simples para calcular o quanto que a reciclagem de materiais (pós-consumo) como: Papel, Plastico, Vidro e Alumínio podem economizar em:
 
 Substituição de Materia Virgem (t)
 Substituição Energética (kWh)
@@ -49,13 +49,13 @@ As quantidade de entrada devem ser em quilos."
 
 ### Primary User Story
 
-As a user, I want to enter the weight of different recyclable materials (Paper, Plastic, Glass, Metal) in kilograms, so that I can immediately see the positive environmental and economic impact of my recycling efforts.
+As a user, I want to enter the weight of different recyclable materials (Paper, Plastic, Glass, Aluminum) in kilograms, so that I can immediately see the positive environmental and economic impact of my recycling efforts.
 
 ### Acceptance Scenarios
 
 1. **Given** the calculator page is open, **When** I enter "100" into the "Paper" input field, **Then** the system instantly calculates and displays all 16 savings metrics based on 100kg of recycled paper.
 2. **Given** I have entered values for several materials, **When** I close and reopen the browser tab, **Then** the input fields retain my previously entered values.
-3. **Given** some input fields are already filled, **When** I update the value in the "Metal" field, **Then** all displayed metrics update immediately to reflect the new total calculation.
+3. **Given** some input fields are already filled, **When** I update the value in the "Aluminum" field, **Then** all displayed metrics update immediately to reflect the new total calculation.
 
 ### Edge Cases
 
@@ -67,7 +67,7 @@ As a user, I want to enter the weight of different recyclable materials (Paper, 
 
 ### Functional Requirements
 
-- **FR-001**: The system MUST provide separate input fields for 'Papel', 'Plástico', 'Vidro', and 'Metal'.
+- **FR-001**: The system MUST provide separate input fields for 'Papel', 'Plástico', 'Vidro', and 'Alumínio'.
 - **FR-002**: All inputs MUST accept numeric values representing kilograms.
 - **FR-003**: The system MUST calculate and display the following 16 metrics in real-time as the user types:
   1.  Substituição de Materia Virgem (t)
@@ -88,13 +88,87 @@ As a user, I want to enter the weight of different recyclable materials (Paper, 
   16. Valor Economia de Custo de Aterramento (R$)
 - **FR-004**: The system MUST save the values entered by the user to the browser's `localStorage`.
 - **FR-005**: The system MUST automatically load the saved values from `localStorage` into the input fields when the page is loaded.
-- **FR-006**: The system must use specific conversion factors for calculations. **[NEEDS CLARIFICATION: What are the exact calculation formulas and conversion factors for each of the 16 output metrics, broken down by each of the 4 input materials (Paper, Plastic, Glass, Metal)?]**
+- **FR-006**: The system must use the specific conversion factors for calculations as detailed below.
 - **FR-007**: The system MUST prevent or handle non-positive (zero or negative) and non-numeric inputs gracefully.
+
+### Calculation Factors
+
+#### Papel e Papelão (per kg)
+
+Based on the information provided, the calculations for each kilogram of paper/cardboard are as follows. Metrics not listed are considered not quantifiable from the source data and should display 0 or N/A.
+
+- **Substituição de Materia Virgem (t)**: `input_kg * 0.00085`
+- **Substituição Energética (kWh)**: `input_kg * 3.44`
+- **Redução de Gás de Efeito Estufa (tCO2e)**: `input_kg * 0.000292`
+- **Valor Equivalente aos Créditos de Carbono (R$)**: This value is a range.
+  - _Cenário Baixo_: `(Redução de Gás de Efeito Estufa in tCO2e) * 26.00`
+  - _Cenário Alto_: `(Redução de Gás de Efeito Estufa in tCO2e) * 78.00`
+  - The UI should display this range, e.g., "R$ X - R$ Y".
+- **Economia de Água (kl)**: `input_kg * 0.023`
+- **Economia de petróleo (barris)**: `input_kg * 0.0075`
+- **Economia de árvores (un.)**: `input_kg * 0.017`
+- **Área de monocultura de árvores poupada (ha.ano)**: `input_kg * 0.000066`
+- **Economia de Bauxita (t)**: 0
+- **Economia de areia (t)**: 0
+
+#### Alumínio (per kg)
+
+Based on the information provided for aluminum. Metrics not listed are considered not quantifiable and should display 0 or N/A.
+
+- **Substituição de Materia Virgem (t)**: `input_kg / 1000` (Aluminum)
+- **Substituição Energética (kWh)**: `input_kg * 14.0`
+- **Redução de Gás de Efeito Estufa (tCO2e)**: `input_kg * 0.009183`
+- **Valor Equivalente aos Créditos de Carbono (R$)**: This value is a range.
+  - _Cenário Baixo_: `(Redução de Gás de Efeito Estufa in tCO2e) * 26.00`
+  - _Cenário Alto_: `(Redução de Gás de Efeito Estufa in tCO2e) * 78.00`
+  - The UI should display this range, e.g., "R$ X - R$ Y".
+- **Economia de Água (kl)**: `input_kg * 0.00399`
+- **Economia de petróleo (barris)**: `input_kg * 0.04`
+- **Economia de Bauxita (t)**: `input_kg * 0.004`
+- **Área de monocultura de árvores poupada (ha.ano)**: 0
+- **Economia de areia (t)**: 0
+- **Economia de árvores (un.)**: 0
+
+#### Plástico (per kg)
+
+Based on the information provided for plastics. Metrics not listed are considered not quantifiable and should display 0 or N/A.
+
+- **Substituição de Materia Virgem (t)**: `input_kg * 0.0009`
+- **Substituição Energética (kWh)**: `input_kg * 0.005774`
+- **Redução de Gás de Efeito Estufa (tCO2e)**: `input_kg * 0.0015`
+- **Valor Equivalente aos Créditos de Carbono (R$)**: This value is a range.
+  - _Cenário Baixo_: `(Redução de Gás de Efeito Estufa in tCO2e) * 26.00`
+  - _Cenário Alto_: `(Redução de Gás de Efeito Estufa in tCO2e) * 78.00`
+  - The UI should display this range, e.g., "R$ X - R$ Y".
+- **Economia de Água (kl)**: `input_kg * 0.0057`
+- **Economia de petróleo (barris)**: `input_kg * 0.0163`
+- **Área de monocultura de árvores poupada (ha.ano)**: 0
+- **Economia de Bauxita (t)**: 0
+- **Economia de areia (t)**: 0
+- **Economia de árvores (un.)**: 0
+
+#### Vidro (per kg)
+
+Based on the information provided for glass. Metrics not listed are considered not quantifiable and should display 0 or N/A.
+
+- **Substituição de Materia Virgem (t)**: `input_kg * 0.0012`
+- **Substituição Energética (kWh)**: `input_kg * 1.449`
+- **Redução de Gás de Efeito Estufa (tCO2e)**: `input_kg * 0.000121`
+- **Valor Equivalente aos Créditos de Carbono (R$)**: This value is a range.
+  - _Cenário Baixo_: `(Redução de Gás de Efeito Estufa in tCO2e) * 26.00`
+  - _Cenário Alto_: `(Redução de Gás de Efeito Estufa in tCO2e) * 78.00`
+  - The UI should display this range, e.g., "R$ X - R$ Y".
+- **Economia de Água (kl)**: `input_kg * 0.0013`
+- **Economia de petróleo (barris)**: 0
+- **Economia de areia (t)**: `input_kg * 0.0012`
+- **Área de monocultura de árvores poupada (ha.ano)**: 0
+- **Economia de Bauxita (t)**: 0
+- **Economia de árvores (un.)**: 0
 
 ### Key Entities _(include if feature involves data)_
 
 - **RecyclingInput**: Represents the user's raw input.
-  - Attributes: `paperInKg`, `plasticInKg`, `glassInKg`, `metalInKg`.
+  - Attributes: `paperInKg`, `plasticInKg`, `glassInKg`, `aluminumInKg`.
 - **EnvironmentalSavings**: Represents the calculated results.
   - Attributes: `virginMaterialSaved_t`, `energySaved_kWh`, `energySavings_BRL`, `ghgReduction_tCO2e`, `carbonCredits_BRL`, `waterSaved_kl`, `waterSavings_BRL`, `forestAreaSaved_ha_year`, `bauxiteSaved_t`, `bauxiteSavings_BRL`, `oilSaved_barrels`, `oilSavings_BRL`, `sandSaved_t`, `sandSavings_BRL`, `treesSaved_units`, `landfillCostSavings_BRL`.
 
@@ -113,10 +187,8 @@ _GATE: Automated checks run during main() execution_
 
 ### Requirement Completeness
 
-- [ ] No [NEEDS CLARIFICATION] markers remain
+- [x] No [NEEDS CLARIFICATION] markers remain
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Scope is clearly bounded
 - [x] Dependencies and assumptions identified
-
----
