@@ -1,52 +1,52 @@
-# Phase 0 Research: Calculadora de Recicláveis
+# Pesquisa da Fase 0: Calculadora de Recicláveis
 
-## 1. Charting Library for shadcn/ui and React
+## 1. Biblioteca de Gráficos para shadcn/ui e React
 
-### Decision
+### Decisão
 
-We will use **Recharts** as the primary charting library for this project.
+Usaremos **Recharts** como a principal biblioteca de gráficos para este projeto.
 
-### Rationale
+### Justificativa
 
-- **React-First Approach**: Recharts is built with React components, making integration seamless and idiomatic. It follows a declarative approach, which aligns perfectly with React's programming model.
-- **Strong Community and Documentation**: It is a widely-used library with extensive documentation, many examples, and strong community support, which reduces development risk.
-- **Compatibility with shadcn/ui**: While shadcn/ui is component-based and unstyled, Recharts is a full SVG-based library. There are no direct conflicts. We can easily wrap Recharts components within shadcn/ui components (like `Card`) and style them with Tailwind CSS to match the application's design system.
-- **Feature Set**: Recharts provides all the necessary components out-of-the-box to create the required stacked bar charts, including `Bar`, `XAxis`, `YAxis`, `Tooltip`, and `ResponsiveContainer`.
+- **Abordagem React-First**: O Recharts é construído com componentes React, tornando a integração perfeita e idiomática. Ele segue uma abordagem declarativa, que se alinha perfeitamente com o modelo de programação do React.
+- **Comunidade Forte e Documentação**: É uma biblioteca amplamente utilizada com documentação extensa, muitos exemplos e forte apoio da comunidade, o que reduz o risco de desenvolvimento.
+- **Compatibilidade com shadcn/ui**: Enquanto o shadcn/ui é baseado em componentes e não estilizado, o Recharts é uma biblioteca completa baseada em SVG. Não há conflitos diretos. Podemos facilmente envolver componentes Recharts dentro de componentes shadcn/ui (como `Card`) e estilizá-los com Tailwind CSS para combinar com o sistema de design da aplicação.
+- **Conjunto de Features**: O Recharts fornece todos os componentes necessários prontos para uso para criar os gráficos de barras empilhadas necessários, incluindo `Bar`, `XAxis`, `YAxis`, `Tooltip` e `ResponsiveContainer`.
 
-### Alternatives Considered
+### Alternativas Consideradas
 
-- **nivo**: Another powerful D3-based charting library for React. While excellent, it has a slightly steeper learning curve for the specific charts we need. Recharts offers a more direct path for creating standard bar charts.
-- **Chart.js**: A popular, flexible library. However, its imperative, canvas-based nature can sometimes feel less "React-native" compared to Recharts' component-based SVG approach.
+- **nivo**: Outra poderosa biblioteca de gráficos baseada em D3 para React. Embora excelente, tem uma curva de aprendizado um pouco mais íngreme para os gráficos específicos que precisamos. O Recharts oferece um caminho mais direto para a criação de gráficos de barras padrão.
+- **Chart.js**: Uma biblioteca popular e flexível. No entanto, sua natureza imperativa e baseada em canvas às vezes pode parecer menos "nativa do React" em comparação com a abordagem baseada em componentes SVG do Recharts.
 
-## 2. Best Practices for shadcn/ui with Vite and React
+## 2. Melhores Práticas para shadcn/ui com Vite e React
 
-### Decision
+### Decisão
 
-We will follow the official shadcn/ui installation guide for Vite + React and leverage Tailwind CSS for all styling.
+Seguiremos o guia de instalação oficial do shadcn/ui para Vite + React e utilizaremos o Tailwind CSS para toda a estilização.
 
-### Rationale
+### Justificativa
 
-- **Official Guidance**: The official documentation provides the most reliable and up-to-date setup process.
-- **Component-Based Styling**: We will create custom components in our `src/components/calculator` directory that compose UI elements from `shadcn/ui`. This promotes reusability and a clean separation of concerns.
-- **Theming**: We will use the `theme.ts` file provided by shadcn/ui to configure our application's color palette and design tokens, ensuring visual consistency.
+- **Orientação Oficial**: A documentação oficial fornece o processo de configuração mais confiável e atualizado.
+- **Estilização Baseada em Componentes**: Criaremos componentes personalizados em nosso diretório `src/components/calculator` que compõem elementos de UI do `shadcn/ui`. Isso promove a reutilização e uma separação limpa de responsabilidades.
+- **Tematização**: Usaremos o arquivo `theme.ts` fornecido pelo shadcn/ui para configurar a paleta de cores e os tokens de design da nossa aplicação, garantindo consistência visual.
 
-### Alternatives Considered
+### Alternativas Consideradas
 
-- **Manual Component Building**: Building all UI components from scratch would be time-consuming and unnecessary given the high quality of shadcn/ui.
+- **Construção Manual de Componentes**: Construir todos os componentes de UI do zero seria demorado e desnecessário, dada a alta qualidade do shadcn/ui.
 
-## 3. Real-time Calculation Patterns in React
+## 3. Padrões de Cálculo em Tempo Real no React
 
-### Decision
+### Decisão
 
-We will manage all calculator state and logic within a custom React hook (`useRecyclingCalculator`).
+Gerenciaremos todo o estado e a lógica da calculadora dentro de um hook React personalizado (`useRecyclingCalculator`).
 
-### Rationale
+### Justificativa
 
-- **State Encapsulation**: A custom hook encapsulates the complex state logic (user inputs, calculated results) and the calculation functions, keeping the UI components clean and focused on rendering.
-- **Performance**: The hook will use `React.useMemo` to memoize the calculation results. This ensures that the expensive calculation functions are only re-run when the input values actually change, preventing unnecessary re-renders and ensuring a smooth user experience.
-- **Testability**: The core logic is isolated in a pure JavaScript function within the hook, making it easy to unit-test with `Vitest` without needing to render any UI components.
+- **Encapsulamento de Estado**: Um hook personalizado encapsula a lógica de estado complexa (entradas do usuário, resultados calculados) e as funções de cálculo, mantendo os componentes da UI limpos e focados na renderização.
+- **Desempenho**: O hook usará `React.useMemo` para memorizar os resultados do cálculo. Isso garante que as funções de cálculo dispendiosas sejam executadas novamente apenas quando os valores de entrada realmente mudam, evitando re-renderizações desnecessárias e garantindo uma experiência de usuário suave.
+- **Testabilidade**: A lógica principal é isolada em uma função JavaScript pura dentro do hook, tornando-a fácil de testar unitariamente com `Vitest` sem a necessidade de renderizar nenhum componente de UI.
 
-### Alternatives Considered
+### Alternativas Consideradas
 
-- **State in Component**: Managing state directly within the `CalculatorPage.tsx` component would lead to a large, difficult-to-maintain component and would mix UI and business logic.
-- **Global State Manager (e.g., Redux, Zustand)**: For an application of this scale (a single page), a global state manager would be overkill and add unnecessary complexity. A custom hook provides the right level of abstraction.
+- **Estado no Componente**: Gerenciar o estado diretamente dentro do componente `CalculatorPage.tsx` levaria a um componente grande e difícil de manter, e misturaria a lógica de UI com a de negócios.
+- **Gerenciador de Estado Global (ex: Redux, Zustand)**: Para uma aplicação desta escala (uma única página), um gerenciador de estado global seria um exagero e adicionaria complexidade desnecessária. Um hook personalizado fornece o nível certo de abstração.

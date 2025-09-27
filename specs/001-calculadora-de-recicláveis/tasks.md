@@ -1,71 +1,71 @@
-# Tasks: Calculadora de Recicláveis
+# Tarefas: Calculadora de Recicláveis
 
-**Input**: Design documents from `/home/saito/_git/coco-calculator/specs/001-calculadora-de-recicláveis/`
-**Prerequisites**: plan.md, research.md, data-model.md, contracts/
+**Entrada**: Documentos de design de `/home/saito/_git/coco-calculator/specs/001-calculadora-de-recicláveis/`
+**Pré-requisitos**: plan.md, research.md, data-model.md, contracts/
 
-## Phase 3.1: Project Setup
+## Fase 3.1: Configuração do Projeto
 
-- [ ] **T001**: Initialize a new Vite + React + TypeScript project in the repository root.
-- [ ] **T002**: Install primary dependencies: `npm install recharts lucide-react clsx tailwind-merge`.
-- [ ] **T003**: Initialize shadcn/ui in the project: `npx shadcn-ui@latest init`.
-- [ ] **T004**: Add required shadcn/ui components: `npx shadcn-ui@latest add card input label`.
-- [ ] **T005**: [P] Configure Vitest and React Testing Library for unit and integration tests.
-- [ ] **T006**: [P] Create the directory structure outlined in `plan.md` (e.g., `src/components/calculator`, `src/lib`, `src/hooks`, etc.).
+- [ ] **T001**: Inicializar um novo projeto Vite + React + TypeScript na raiz do repositório.
+- [ ] **T002**: Instalar dependências primárias: `npm install recharts lucide-react clsx tailwind-merge`.
+- [ ] **T003**: Inicializar shadcn/ui no projeto: `npx shadcn-ui@latest init`.
+- [ ] **T004**: Adicionar componentes shadcn/ui necessários: `npx shadcn-ui@latest add card input label`.
+- [ ] **T005**: [P] Configurar Vitest e React Testing Library para testes unitários e de integração.
+- [ ] **T006**: [P] Criar a estrutura de diretórios descrita em `plan.md` (ex: `src/components/calculator`, `src/lib`, `src/hooks`, etc.).
 
-## Phase 3.2: TDD - Core Logic & Types
+## Fase 3.2: TDD - Lógica Principal e Tipos
 
-**CRITICAL: These tests MUST be written and MUST FAIL before any implementation.**
+**CRÍTICO: Estes testes DEVEM ser escritos e DEVEM FALHAR antes de qualquer implementação.**
 
-- [ ] **T007**: [P] Create contract test file `tests/contract/calculator.test.ts` to validate the `calculateSavings` function signature and data structures defined in `contracts/calculator.d.ts`.
-- [ ] **T008**: [P] Create unit test file `tests/unit/calculator.test.ts` with test cases for each calculation factor based on `spec.md`. Ensure it tests zero, single, and multiple material inputs.
+- [ ] **T007**: [P] Criar arquivo de teste de contrato `tests/contract/calculator.test.ts` para validar a assinatura da função `calculateSavings` e as estruturas de dados definidas em `contracts/calculator.d.ts`.
+- [ ] **T008**: [P] Criar arquivo de teste unitário `tests/unit/calculator.test.ts` com casos de teste para cada fator de cálculo com base em `spec.md`. Garantir que ele teste entradas de material zero, único e múltiplo.
 
-## Phase 3.3: Core Implementation
+## Fase 3.3: Implementação Principal
 
-- [ ] **T009**: Create `src/lib/types.ts` and define the TypeScript interfaces (`RecyclingInput`, `EnvironmentalSavings`, etc.) based on `contracts/calculator.d.ts`.
-- [ ] **T010**: Create the core calculation function in `src/lib/calculator.ts`. Implement the `calculateSavings` function stub to satisfy the contract tests (T007) but fail the unit tests (T008).
-- [ ] **T011**: Implement the full calculation logic in `src/lib/calculator.ts` to make all unit tests in `tests/unit/calculator.test.ts` pass.
+- [ ] **T009**: Criar `src/lib/types.ts` e definir as interfaces TypeScript (`RecyclingInput`, `EnvironmentalSavings`, etc.) com base em `contracts/calculator.d.ts`.
+- [ ] **T010**: Criar a função de cálculo principal em `src/lib/calculator.ts`. Implementar o stub da função `calculateSavings` para satisfazer os testes de contrato (T007), mas falhar nos testes unitários (T008).
+- [ ] **T011**: Implementar a lógica de cálculo completa em `src/lib/calculator.ts` para fazer todos os testes unitários em `tests/unit/calculator.test.ts` passarem.
 
-## Phase 3.4: TDD - UI Components
+## Fase 3.4: TDD - Componentes de UI
 
-**CRITICAL: These tests MUST be written and MUST FAIL before any implementation.**
+**CRÍTICO: Estes testes DEVEM ser escritos e DEVEM FALHAR antes de qualquer implementação.**
 
-- [ ] **T012**: [P] Create integration test `tests/integration/CalculatorPage.test.tsx` for the main page.
-  - Test Scenario 1: Verify that entering a value in one input field updates the results correctly.
-  - Test Scenario 2: Verify that data persists after a simulated page reload (mocking localStorage).
-  - Test Scenario 3: Verify that charts render with the correct data when multiple inputs are provided.
+- [ ] **T012**: [P] Criar teste de integração `tests/integration/CalculatorPage.test.tsx` para a página principal.
+  - Cenário de Teste 1: Verificar se a inserção de um valor em um campo de entrada atualiza os resultados corretamente.
+  - Cenário de Teste 2: Verificar se os dados persistem após uma recarga de página simulada (mockando o localStorage).
+  - Cenário de Teste 3: Verificar se os gráficos são renderizados com os dados corretos quando várias entradas são fornecidas.
 
-## Phase 3.5: UI Implementation
+## Fase 3.5: Implementação da UI
 
-- [ ] **T013**: [P] Create the input form component in `src/components/calculator/InputForm.tsx` using shadcn/ui `Card`, `Input`, and `Label` components.
-- [ ] **T014**: [P] Create a generic `MetricCard.tsx` component in `src/components/calculator/` to display a single result metric.
-- [ ] **T015**: [P] Create a `ResultsDisplay.tsx` component in `src/components/calculator/` that maps over the calculated data and renders a grid of `MetricCard` components.
-- [ ] **T016**: [P] Create the stacked bar chart component `src/components/charts/MetricChart.tsx` using Recharts, which accepts a `ChartableMetric` object as a prop.
-- [ ] **T017**: Create the custom hook `src/hooks/useRecyclingCalculator.ts` to manage state, handle user input, and call the `calculateSavings` function (using `useMemo` for performance).
-- [ ] **T018**: Assemble the main page in `src/pages/CalculatorPage.tsx`, integrating the `InputForm`, `ResultsDisplay`, `MetricChart` components, and the `useRecyclingCalculator` hook.
-- [ ] **T019**: Implement the `localStorage` logic within the `useRecyclingCalculator` hook to save and load user inputs.
+- [ ] **T013**: [P] Criar o componente de formulário de entrada em `src/components/calculator/InputForm.tsx` usando os componentes `Card`, `Input` e `Label` do shadcn/ui.
+- [ ] **T014**: [P] Criar um componente genérico `MetricCard.tsx` em `src/components/calculator/` para exibir uma única métrica de resultado.
+- [ ] **T015**: [P] Criar um componente `ResultsDisplay.tsx` em `src/components/calculator/` que mapeia os dados calculados e renderiza uma grade de componentes `MetricCard`.
+- [ ] **T016**: [P] Criar o componente de gráfico de barras empilhadas `src/components/charts/MetricChart.tsx` usando Recharts, que aceita um objeto `ChartableMetric` como prop.
+- [ ] **T017**: Criar o hook personalizado `src/hooks/useRecyclingCalculator.ts` para gerenciar o estado, lidar com a entrada do usuário e chamar a função `calculateSavings` (usando `useMemo` para desempenho).
+- [ ] **T018**: Montar a página principal em `src/pages/CalculatorPage.tsx`, integrando os componentes `InputForm`, `ResultsDisplay`, `MetricChart` e o hook `useRecyclingCalculator`.
+- [ ] **T019**: Implementar a lógica do `localStorage` dentro do hook `useRecyclingCalculator` para salvar e carregar as entradas do usuário.
 
-## Phase 3.6: Polish & Validation
+## Fase 3.6: Polimento e Validação
 
-- [ ] **T020**: [P] Add unit tests for individual UI components to ensure they render correctly based on props.
-- [ ] **T021**: [P] Style the application using Tailwind CSS to ensure a clean and responsive layout.
-- [ ] **T022**: Run all scenarios from `quickstart.md` manually to validate the final application.
+- [ ] **T020**: [P] Adicionar testes unitários para componentes de UI individuais para garantir que eles renderizem corretamente com base nas props.
+- [ ] **T021**: [P] Estilizar a aplicação usando Tailwind CSS para garantir um layout limpo e responsivo.
+- [ ] **T022**: Executar todos os cenários de `quickstart.md` manualmente para validar a aplicação final.
 
-## Dependencies
+## Dependências
 
-- **T001-T006** (Setup) must be completed before all other tasks.
-- **T007-T008** (Core Logic Tests) must be completed before **T009-T011**.
-- **T011** (Core Logic Implementation) must be completed before **T017**.
-- **T012** (UI Tests) must be completed before **T013-T019**.
-- **T013-T016** can be done in parallel.
-- **T017** and **T018** are sequential and depend on the completion of UI components.
+- **T001-T006** (Configuração) devem ser concluídas antes de todas as outras tarefas.
+- **T007-T008** (Testes da Lógica Principal) devem ser concluídos antes de **T009-T011**.
+- **T011** (Implementação da Lógica Principal) deve ser concluída antes de **T017**.
+- **T012** (Testes de UI) deve ser concluído antes de **T013-T019**.
+- **T013-T016** podem ser feitos em paralelo.
+- **T017** e **T018** são sequenciais e dependem da conclusão dos componentes de UI.
 
-## Parallel Example
+## Exemplo Paralelo
 
 ```
-# The following setup and test creation tasks can be run in parallel:
-Task: "T005 Configure Vitest and React Testing Library"
-Task: "T006 Create the directory structure"
-Task: "T007 Create contract test file for calculator.ts"
-Task: "T008 Create unit test file for calculator.ts"
-Task: "T012 Create integration test for CalculatorPage.tsx"
+# As seguintes tarefas de configuração e criação de testes podem ser executadas em paralelo:
+Tarefa: "T005 Configurar Vitest e React Testing Library"
+Tarefa: "T006 Criar a estrutura de diretórios"
+Tarefa: "T007 Criar arquivo de teste de contrato para calculator.ts"
+Tarefa: "T008 Criar arquivo de teste unitário para calculator.ts"
+Tarefa: "T012 Criar teste de integração para CalculatorPage.tsx"
 ```

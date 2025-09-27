@@ -1,8 +1,8 @@
 // specs/001-calculadora-de-recicláveis/contracts/calculator.d.ts
 
 /**
- * Represents the raw input values for the recycling calculation.
- * All values are in kilograms.
+ * Representa os valores de entrada brutos para o cálculo de reciclagem.
+ * Todos os valores estão em quilogramas.
  */
 export interface RecyclingInput {
   paperInKg: number;
@@ -12,7 +12,7 @@ export interface RecyclingInput {
 }
 
 /**
- * Represents the contribution of a single material to a total metric.
+ * Representa a contribuição de um único material para uma métrica total.
  */
 export interface MetricSource {
   material: "Papel" | "Plástico" | "Vidro" | "Alumínio";
@@ -21,8 +21,8 @@ export interface MetricSource {
 }
 
 /**
- * Represents a chartable environmental metric, including its total value
- * and a breakdown of contributions by material.
+ * Representa uma métrica ambiental que pode ser exibida em gráfico, incluindo seu valor total
+ * e uma análise das contribuições por material.
  */
 export interface ChartableMetric {
   label: string;
@@ -32,11 +32,11 @@ export interface ChartableMetric {
 }
 
 /**
- * Represents the full, calculated environmental savings.
- * This is the structured output designed to be consumed by the UI.
+ * Representa a economia ambiental completa e calculada.
+ * Esta é a saída estruturada projetada para ser consumida pela UI.
  */
 export interface EnvironmentalSavings {
-  // Primary Metrics (Chartable)
+  // Métricas Primárias (Graficáveis)
   virginMaterialSaved_t: ChartableMetric;
   energySaved_kWh: ChartableMetric;
   ghgReduction_tCO2e: ChartableMetric;
@@ -47,14 +47,14 @@ export interface EnvironmentalSavings {
   treesSaved_units: ChartableMetric;
   forestAreaSaved_ha_year: ChartableMetric;
 
-  // Equivalent Metrics (Direct Values)
+  // Métricas Equivalentes (Valores Diretos)
   equiv_home_energy_days: number;
   equiv_ev_km: number;
   equiv_phone_charges: number;
   equiv_showers: number;
   equiv_gas_car_km: number;
 
-  // Financial Metrics (Not yet implemented in spec, placeholders for now)
+  // Métricas Financeiras (Ainda não implementadas na especificação, placeholders por enquanto)
   energySavings_BRL: number;
   carbonCredits_BRL: number;
   waterSavings_BRL: number;
@@ -65,8 +65,8 @@ export interface EnvironmentalSavings {
 }
 
 /**
- * Defines the contract for the core calculation function.
- * It takes the user's raw input and returns the full, structured
- * environmental savings report.
+ * Define o contrato para a função de cálculo principal.
+ * Recebe a entrada bruta do usuário e retorna o relatório completo e estruturado
+ * de economia ambiental.
  */
 export type CalculateSavings = (input: RecyclingInput) => EnvironmentalSavings;

@@ -1,9 +1,9 @@
-# Feature Specification: Calculadora de Recicláveis
+# Especificação de Feature: Calculadora de Recicláveis
 
-**Feature Branch**: `001-calculadora-de-recicláveis`
-**Created**: 2025-09-26
-**Status**: Draft
-**Input**: User description: "calculadora de recicláveis
+**Branch da Feature**: `001-calculadora-de-recicláveis`
+**Criado em**: 2025-09-26
+**Status**: Rascunho
+**Entrada**: Descrição do usuário: "calculadora de recicláveis
 
 Sistema web simples para calcular o quanto que a reciclagem de materiais (pós-consumo) como: Papel, Plastico, Vidro e Alumínio podem economizar em:
 
@@ -31,45 +31,45 @@ As quantidade de entrada devem ser em quilos."
 
 ---
 
-## ⚡ Quick Guidelines
+## ⚡ Diretrizes Rápidas
 
-- ✅ Focus on WHAT users need and WHY
-- ❌ Avoid HOW to implement (no tech stack, APIs, code structure)
-- 👥 Written for business stakeholders, not developers
+- ✅ Foco no **QUE** os usuários precisam e **PORQUÊ**
+- ❌ Evitar o **COMO** implementar (sem pilha de tecnologia, APIs, estrutura de código)
+- 👥 Escrito para stakeholders de negócio, não para desenvolvedores
 
-### Section Requirements
+### Requisitos da Seção
 
-- **Mandatory sections**: Must be completed for every feature
-- **Optional sections**: Include only when relevant to the feature
-- When a section doesn't apply, remove it entirely (don't leave as "N/A")
+- **Seções obrigatórias**: Devem ser completadas para cada feature
+- **Seções opcionais**: Incluir apenas quando relevante para a feature
+- Quando uma seção não se aplica, remova-a completamente (não deixe como "N/A")
 
 ---
 
-## User Scenarios & Testing _(mandatory)_
+## Cenários de Usuário & Testes _(obrigatório)_
 
-### Primary User Story
+### História de Usuário Principal
 
-As a user, I want to enter the weight of different recyclable materials (Paper, Plastic, Glass, Aluminum) in kilograms, so that I can immediately see the positive environmental and economic impact of my recycling efforts.
+Como um usuário, eu quero inserir o peso de diferentes materiais recicláveis (Papel, Plástico, Vidro, Alumínio) em quilogramas, para que eu possa ver imediatamente o impacto ambiental e econômico positivo dos meus esforços de reciclagem.
 
-### Acceptance Scenarios
+### Cenários de Aceitação
 
-1. **Given** the calculator page is open, **When** I enter "100" into the "Paper" input field, **Then** the system instantly calculates and displays all 16 savings metrics based on 100kg of recycled paper.
-2. **Given** I have entered values for several materials, **When** I close and reopen the browser tab, **Then** the input fields retain my previously entered values.
-3. **Given** some input fields are already filled, **When** I update the value in the "Aluminum" field, **Then** all displayed metrics update immediately to reflect the new total calculation.
+1.  **Dado** que a página da calculadora está aberta, **Quando** eu insiro "100" no campo de entrada "Papel", **Então** o sistema calcula e exibe instantaneamente todas as 21 métricas de economia com base em 100kg de papel reciclado.
+2.  **Dado** que eu inseri valores para vários materiais, **Quando** eu fecho e reabro a aba do navegador, **Então** os campos de entrada mantêm os valores que eu inseri anteriormente.
+3.  **Dado** que alguns campos de entrada já estão preenchidos, **Quando** eu atualizo o valor no campo "Alumínio", **Então** todas as métricas exibidas são atualizadas imediatamente para refletir o novo cálculo total.
 
-### Edge Cases
+### Casos Extremos
 
-- How does the system handle non-numeric input?
-- How does the system handle negative numbers in the input fields?
-- Is there an upper limit for the weight that can be entered?
+- Como o sistema lida com entradas não numéricas?
+- Como o sistema lida com números negativos nos campos de entrada?
+- Existe um limite superior para o peso que pode ser inserido?
 
-## Requirements _(mandatory)_
+## Requisitos _(obrigatório)_
 
-### Functional Requirements
+### Requisitos Funcionais
 
-- **FR-001**: The system MUST provide separate input fields for 'Papel', 'Plástico', 'Vidro', and 'Alumínio'.
-- **FR-002**: All inputs MUST accept numeric values representing kilograms.
-- **FR-003**: The system MUST calculate and display the following 21 metrics in real-time as the user types:
+- **RF-001**: O sistema DEVE fornecer campos de entrada separados para 'Papel', 'Plástico', 'Vidro' e 'Alumínio'.
+- **RF-002**: Todas as entradas DEVEM aceitar valores numéricos representando quilogramas.
+- **RF-003**: O sistema DEVE calcular e exibir as seguintes 21 métricas em tempo real à medida que o usuário digita:
   1.  Substituição de Materia Virgem (t)
   2.  Substituição Energética (kWh)
   3.  Valor Equivalente à Economia de Energia (R$)
@@ -91,29 +91,29 @@ As a user, I want to enter the weight of different recyclable materials (Paper, 
   19. **(Equivalente)** Cargas de bateria de celular
   20. **(Equivalente)** Banhos de 10 minutos
   21. **(Equivalente)** Quilômetros de carro a gasolina evitados
-- **FR-004**: The system MUST save the values entered by the user to the browser's `localStorage`.
-- **FR-005**: The system MUST automatically load the saved values from `localStorage` into the input fields when the page is loaded.
-- **FR-006**: The system must use the specific conversion factors for calculations as detailed below.
-- **FR-007**: The system MUST prevent or handle non-positive (zero or negative) and non-numeric inputs gracefully.
-- **FR-008**: The system MUST display a stacked bar chart for each primary environmental metric.
-  - Each segment of the bar MUST represent the contribution of a specific material (Papel, Alumínio, Plástico, Vidro) to the total.
-  - The chart MUST update in real-time as the user enters or changes input values.
-  - The total value for the metric MUST be clearly displayed alongside the chart.
-  - _(Recommended)_ The chart SHOULD be interactive, showing a tooltip with the material's specific value and percentage contribution on hover.
+- **RF-004**: O sistema DEVE salvar os valores inseridos pelo usuário no `localStorage` do navegador.
+- **RF-005**: O sistema DEVE carregar automaticamente os valores salvos do `localStorage` nos campos de entrada quando a página for carregada.
+- **RF-006**: O sistema DEVE usar os fatores de conversão específicos para os cálculos, conforme detalhado abaixo.
+- **RF-007**: O sistema DEVE prevenir ou lidar com entradas não positivas (zero ou negativas) e não numéricas de forma elegante.
+- **RF-008**: O sistema DEVE exibir um gráfico de barras empilhadas para cada métrica ambiental primária.
+  - Cada segmento da barra DEVE representar a contribuição de um material específico (Papel, Alumínio, Plástico, Vidro) para o total.
+  - O gráfico DEVE ser atualizado em tempo real à medida que o usuário insere ou altera os valores de entrada.
+  - O valor total da métrica DEVE ser exibido claramente ao lado do gráfico.
+  - _(Recomendado)_ O gráfico DEVERIA ser interativo, mostrando uma dica de ferramenta com o valor específico do material e a contribuição percentual ao passar o mouse.
 
-### Calculation Factors
+### Fatores de Cálculo
 
-#### Papel e Papelão (per kg)
+#### Papel e Papelão (por kg)
 
-Based on the information provided, the calculations for each kilogram of paper/cardboard are as follows. Metrics not listed are considered not quantifiable from the source data and should display 0 or N/A.
+Com base nas informações fornecidas, os cálculos para cada quilograma de papel/papelão são os seguintes. As métricas não listadas são consideradas não quantificáveis a partir dos dados de origem e devem exibir 0 ou N/A.
 
 - **Substituição de Materia Virgem (t)**: `input_kg * 0.00085`
 - **Substituição Energética (kWh)**: `input_kg * 3.44`
 - **Redução de Gás de Efeito Estufa (tCO2e)**: `input_kg * 0.000292`
-- **Valor Equivalente aos Créditos de Carbono (R$)**: This value is a range.
+- **Valor Equivalente aos Créditos de Carbono (R$)**: Este valor é um intervalo.
   - _Cenário Baixo_: `(Redução de Gás de Efeito Estufa in tCO2e) * 26.00`
   - _Cenário Alto_: `(Redução de Gás de Efeito Estufa in tCO2e) * 78.00`
-  - The UI should display this range, e.g., "R$ X - R$ Y".
+  - A UI deve exibir este intervalo, ex: "R$ X - R$ Y".
 - **Economia de Água (kl)**: `input_kg * 0.023`
 - **Economia de petróleo (barris)**: `input_kg * 0.0075`
 - **Economia de árvores (un.)**: `input_kg * 0.017`
@@ -121,17 +121,17 @@ Based on the information provided, the calculations for each kilogram of paper/c
 - **Economia de Bauxita (t)**: 0
 - **Economia de areia (t)**: 0
 
-#### Alumínio (per kg)
+#### Alumínio (por kg)
 
-Based on the information provided for aluminum. Metrics not listed are considered not quantifiable and should display 0 or N/A.
+Com base nas informações fornecidas para o alumínio. As métricas não listadas são consideradas não quantificáveis e devem exibir 0 ou N/A.
 
-- **Substituição de Materia Virgem (t)**: `input_kg / 1000` (Aluminum)
+- **Substituição de Materia Virgem (t)**: `input_kg / 1000` (Alumínio)
 - **Substituição Energética (kWh)**: `input_kg * 14.0`
 - **Redução de Gás de Efeito Estufa (tCO2e)**: `input_kg * 0.009183`
-- **Valor Equivalente aos Créditos de Carbono (R$)**: This value is a range.
+- **Valor Equivalente aos Créditos de Carbono (R$)**: Este valor é um intervalo.
   - _Cenário Baixo_: `(Redução de Gás de Efeito Estufa in tCO2e) * 26.00`
   - _Cenário Alto_: `(Redução de Gás de Efeito Estufa in tCO2e) * 78.00`
-  - The UI should display this range, e.g., "R$ X - R$ Y".
+  - A UI deve exibir este intervalo, ex: "R$ X - R$ Y".
 - **Economia de Água (kl)**: `input_kg * 0.00399`
 - **Economia de petróleo (barris)**: `input_kg * 0.04`
 - **Economia de Bauxita (t)**: `input_kg * 0.004`
@@ -139,17 +139,17 @@ Based on the information provided for aluminum. Metrics not listed are considere
 - **Economia de areia (t)**: 0
 - **Economia de árvores (un.)**: 0
 
-#### Plástico (per kg)
+#### Plástico (por kg)
 
-Based on the information provided for plastics. Metrics not listed are considered not quantifiable and should display 0 or N/A.
+Com base nas informações fornecidas para plásticos. As métricas não listadas são consideradas não quantificáveis e devem exibir 0 ou N/A.
 
 - **Substituição de Materia Virgem (t)**: `input_kg * 0.0009`
 - **Substituição Energética (kWh)**: `input_kg * 0.005774`
 - **Redução de Gás de Efeito Estufa (tCO2e)**: `input_kg * 0.0015`
-- **Valor Equivalente aos Créditos de Carbono (R$)**: This value is a range.
+- **Valor Equivalente aos Créditos de Carbono (R$)**: Este valor é um intervalo.
   - _Cenário Baixo_: `(Redução de Gás de Efeito Estufa in tCO2e) * 26.00`
   - _Cenário Alto_: `(Redução de Gás de Efeito Estufa in tCO2e) * 78.00`
-  - The UI should display this range, e.g., "R$ X - R$ Y".
+  - A UI deve exibir este intervalo, ex: "R$ X - R$ Y".
 - **Economia de Água (kl)**: `input_kg * 0.0057`
 - **Economia de petróleo (barris)**: `input_kg * 0.0163`
 - **Área de monocultura de árvores poupada (ha.ano)**: 0
@@ -157,17 +157,17 @@ Based on the information provided for plastics. Metrics not listed are considere
 - **Economia de areia (t)**: 0
 - **Economia de árvores (un.)**: 0
 
-#### Vidro (per kg)
+#### Vidro (por kg)
 
-Based on the information provided for glass. Metrics not listed are considered not quantifiable and should display 0 or N/A.
+Com base nas informações fornecidas para o vidro. As métricas não listadas são consideradas não quantificáveis e devem exibir 0 ou N/A.
 
 - **Substituição de Materia Virgem (t)**: `input_kg * 0.0012`
 - **Substituição Energética (kWh)**: `input_kg * 1.449`
 - **Redução de Gás de Efeito Estufa (tCO2e)**: `input_kg * 0.000121`
-- **Valor Equivalente aos Créditos de Carbono (R$)**: This value is a range.
+- **Valor Equivalente aos Créditos de Carbono (R$)**: Este valor é um intervalo.
   - _Cenário Baixo_: `(Redução de Gás de Efeito Estufa in tCO2e) * 26.00`
   - _Cenário Alto_: `(Redução de Gás de Efeito Estufa in tCO2e) * 78.00`
-  - The UI should display this range, e.g., "R$ X - R$ Y".
+  - A UI deve exibir este intervalo, ex: "R$ X - R$ Y".
 - **Economia de Água (kl)**: `input_kg * 0.0013`
 - **Economia de petróleo (barris)**: 0
 - **Economia de areia (t)**: `input_kg * 0.0012`
@@ -179,7 +179,7 @@ Based on the information provided for glass. Metrics not listed are considered n
 
 Esta seção detalha os cálculos para converter as métricas de impacto primário em equivalentes do dia a dia, tornando os resultados mais compreensíveis e impactantes para o usuário.
 
-#### Métricas por Material (per kg)
+#### Métricas por Material (por kg)
 
 - **Papel e Papelão**:
   - **Energia para uma casa (dias)**: `input_kg * 0.688` (Base: 5 kWh/dia por residência)
@@ -194,38 +194,38 @@ Esta seção detalha os cálculos para converter as métricas de impacto primár
   - **Cargas de bateria de celular (un.)**: `input_kg * 97` (Base: 0.015 kWh/carga)
   - **Km de carro a gasolina evitados (km)**: `input_kg * 1.0` (Base: 0.12 kgCO2e/km)
 
-### Key Entities _(include if feature involves data)_
+### Entidades Chave _(incluir se a feature envolver dados)_
 
-- **RecyclingInput**: Represents the user's raw input.
-  - Attributes: `paperInKg`, `plasticInKg`, `glassInKg`, `aluminumInKg`.
-- **EnvironmentalSavings**: Represents the calculated results. Each metric within this entity will be an object structured to support charting, containing the total value and a breakdown by material.
+- **EntradaReciclagem**: Representa a entrada bruta do usuário.
+  - Atributos: `papelEmKg`, `plasticoEmKg`, `vidroEmKg`, `aluminioEmKg`.
+- **EconomiasAmbientais**: Representa os resultados calculados. Cada métrica dentro desta entidade será um objeto estruturado para suportar a criação de gráficos, contendo o valor total e uma discriminação por material.
 
-#### Data Structure for Charting
+#### Estrutura de Dados para Gráficos
 
-Each calculated metric will follow the JSON structure below. This structure is designed to provide all necessary data for rendering a stacked bar chart and its interactive elements for each primary environmental metric.
+Cada métrica calculada seguirá a estrutura JSON abaixo. Esta estrutura é projetada para fornecer todos os dados necessários para renderizar um gráfico de barras empilhadas e seus elementos interativos para cada métrica ambiental primária.
 
 ```json
 {
-  "ghgReduction_tCO2e": {
+  "reducaoGEE_tCO2e": {
     "label": "Redução de GEE",
     "total": 0.519,
-    "unit": "tCO2e",
-    "sources": [
-      { "material": "Papel", "value": 0.0292, "percentage": 5.6 },
-      { "material": "Alumínio", "value": 0.4591, "percentage": 88.5 },
-      { "material": "Plástico", "value": 0.03, "percentage": 5.8 },
-      { "material": "Vidro", "value": 0, "percentage": 0 }
+    "unidade": "tCO2e",
+    "fontes": [
+      { "material": "Papel", "valor": 0.0292, "percentual": 5.6 },
+      { "material": "Alumínio", "valor": 0.4591, "percentual": 88.5 },
+      { "material": "Plástico", "valor": 0.03, "percentual": 5.8 },
+      { "material": "Vidro", "valor": 0, "percentual": 0 }
     ]
   },
-  "waterSaved_kl": {
+  "aguaEconomizada_kl": {
     "label": "Economia de Água",
     "total": 2.599,
-    "unit": "kl",
-    "sources": [
-      { "material": "Papel", "value": 2.3, "percentage": 88.5 },
-      { "material": "Alumínio", "value": 0.199, "percentage": 7.7 },
-      { "material": "Plástico", "value": 0.1, "percentage": 3.8 },
-      { "material": "Vidro", "value": 0, "percentage": 0 }
+    "unidade": "kl",
+    "fontes": [
+      { "material": "Papel", "valor": 2.3, "percentual": 88.5 },
+      { "material": "Alumínio", "valor": 0.199, "percentual": 7.7 },
+      { "material": "Plástico", "valor": 0.1, "percentual": 3.8 },
+      { "material": "Vidro", "valor": 0, "percentual": 0 }
     ]
   }
 }
@@ -233,21 +233,21 @@ Each calculated metric will follow the JSON structure below. This structure is d
 
 ---
 
-## Review & Acceptance Checklist
+## Checklist de Revisão e Aceitação
 
-_GATE: Automated checks run during main() execution_
+_GATE: Verificações automatizadas executadas durante a execução do main()_
 
-### Content Quality
+### Qualidade do Conteúdo
 
-- [x] No implementation details (languages, frameworks, APIs)
-- [x] Focused on user value and business needs
-- [x] Written for non-technical stakeholders
-- [x] All mandatory sections completed
+- [x] Sem detalhes de implementação (linguagens, frameworks, APIs)
+- [x] Focado no valor para o usuário e nas necessidades de negócio
+- [x] Escrito para stakeholders não técnicos
+- [x] Todas as seções obrigatórias preenchidas
 
-### Requirement Completeness
+### Completude dos Requisitos
 
-- [x] No [NEEDS CLARIFICATION] markers remain
-- [x] Requirements are testable and unambiguous
-- [x] Success criteria are measurable
-- [x] Scope is clearly bounded
-- [x] Dependencies and assumptions identified
+- [x] Nenhum marcador [PRECISA DE ESCLARECIMENTO] permanece
+- [x] Requisitos são testáveis e inequívocos
+- [x] Critérios de sucesso são mensuráveis
+- [x] Escopo está claramente delimitado
+- [x] Dependências e premissas identificadas

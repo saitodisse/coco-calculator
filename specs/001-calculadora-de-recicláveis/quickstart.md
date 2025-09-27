@@ -1,38 +1,38 @@
-# Quickstart: Calculadora de Recicláveis
+# Início Rápido: Calculadora de Recicláveis
 
-This document provides a set of acceptance scenarios to quickly validate the core functionality of the Recycling Calculator application.
+Este documento fornece um conjunto de cenários de aceitação para validar rapidamente a funcionalidade principal da aplicação Calculadora de Recicláveis.
 
-## Prerequisites
+## Pré-requisitos
 
-- The application is running in a development environment (`npm run dev`).
-- The user has opened the application in a web browser.
+- A aplicação está rodando em um ambiente de desenvolvimento (`npm run dev`).
+- O usuário abriu a aplicação em um navegador web.
 
-## Scenario 1: Real-time Calculation for a Single Material
+## Cenário 1: Cálculo em Tempo Real para um Único Material
 
-1.  **Given** the calculator page is open.
-2.  **When** the user enters "100" into the "Papel" input field.
-3.  **Then** the system must instantly calculate and display all 21 savings metrics.
-4.  **And** the stacked bar charts for each primary metric must update, showing a single bar segment corresponding to the contribution of 100kg of paper.
-5.  **And** the total value displayed for each chart must match the value calculated for 100kg of paper.
+1.  **Dado** que a página da calculadora está aberta.
+2.  **Quando** o usuário insere "100" no campo de entrada "Papel".
+3.  **Então** o sistema deve calcular e exibir instantaneamente todas as 21 métricas de economia.
+4.  **E** os gráficos de barras empilhadas para cada métrica primária devem ser atualizados, mostrando um único segmento de barra correspondente à contribuição de 100kg de papel.
+5.  **E** o valor total exibido para cada gráfico deve corresponder ao valor calculado para 100kg de papel.
 
-### Expected Values (for 100kg Paper)
+### Valores Esperados (para 100kg de Papel)
 
 - **Redução de GEE**: 0.0292 tCO2e
 - **Economia de Água**: 2.3 kl
 - **Substituição Energética**: 344 kWh
-- _(...and so on for all other metrics)_
+- _(...e assim por diante para todas as outras métricas)_
 
-## Scenario 2: Data Persistence on Reload
+## Cenário 2: Persistência de Dados ao Recarregar
 
-1.  **Given** the user has entered "100" for "Papel" and "50" for "Alumínio".
-2.  **When** the user closes and reopens the browser tab.
-3.  **Then** the input fields for "Papel" and "Alumínio" must retain the values "100" and "50" respectively.
-4.  **And** all calculated metrics and charts must be displayed correctly based on the restored values.
+1.  **Dado** que o usuário inseriu "100" para "Papel" e "50" para "Alumínio".
+2.  **Quando** o usuário fecha e reabre a aba do navegador.
+3.  **Então** os campos de entrada para "Papel" e "Alumínio" devem manter os valores "100" e "50", respectivamente.
+4.  **E** todas as métricas e gráficos calculados devem ser exibidos corretamente com base nos valores restaurados.
 
-## Scenario 3: Dynamic Updates with Multiple Materials
+## Cenário 3: Atualizações Dinâmicas com Múltiplos Materiais
 
-1.  **Given** the input fields are already filled with "100" for "Papel" and "20" for "Plástico".
-2.  **When** the user updates the value in the "Alumínio" field to "50".
-3.  **Then** all displayed metrics and charts must update immediately to reflect the new total calculation based on all three materials.
-4.  **And** the "Redução de GEE" chart should show three colored segments representing Paper, Plastic, and Aluminum.
-5.  **And** the total for "Redução de GEE" should be the sum of the contributions from all three materials (approx. 0.0292 + 0.03 + 0.4591 = 0.5183 tCO2e).
+1.  **Dado** que os campos de entrada já estão preenchidos com "100" para "Papel" e "20" para "Plástico".
+2.  **Quando** o usuário atualiza o valor no campo "Alumínio" para "50".
+3.  **Então** todas as métricas e gráficos exibidos devem ser atualizados imediatamente para refletir o novo cálculo total com base nos três materiais.
+4.  **E** o gráfico "Redução de GEE" deve mostrar três segmentos coloridos representando Papel, Plástico e Alumínio.
+5.  **E** o total para "Redução de GEE" deve ser a soma das contribuições de todos os três materiais (aprox. 0.0292 + 0.03 + 0.4591 = 0.5183 tCO2e).

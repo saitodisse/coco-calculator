@@ -1,24 +1,24 @@
-# Data Model: Calculadora de Recicláveis
+# Modelo de Dados: Calculadora de Recicláveis
 
-This document outlines the data structures used in the recycling calculator application. These models represent the user's input and the structured output of the environmental savings calculations.
+Este documento descreve as estruturas de dados usadas na aplicação da calculadora de reciclagem. Estes modelos representam a entrada do usuário e a saída estruturada dos cálculos de economia ambiental.
 
 ## 1. RecyclingInput
 
-Represents the raw input values entered by the user.
+Representa os valores de entrada brutos inseridos pelo usuário.
 
-- **Type**: `object`
-- **Description**: Contains the weight in kilograms for each type of recyclable material.
+- **Tipo**: `object`
+- **Descrição**: Contém o peso em quilogramas para cada tipo de material reciclável.
 
-### Attributes
+### Atributos
 
-| Attribute      | Type     | Description                          | Constraints |
-| :------------- | :------- | :----------------------------------- | :---------- |
-| `paperInKg`    | `number` | The weight of paper/cardboard in kg. | `> 0`       |
-| `plasticInKg`  | `number` | The weight of plastic in kg.         | `> 0`       |
-| `glassInKg`    | `number` | The weight of glass in kg.           | `> 0`       |
-| `aluminumInKg` | `number` | The weight of aluminum in kg.        | `> 0`       |
+| Atributo       | Tipo     | Descrição                      | Restrições |
+| :------------- | :------- | :----------------------------- | :--------- |
+| `paperInKg`    | `number` | O peso de papel/papelão em kg. | `> 0`      |
+| `plasticInKg`  | `number` | O peso de plástico em kg.      | `> 0`      |
+| `glassInKg`    | `number` | O peso de vidro em kg.         | `> 0`      |
+| `aluminumInKg` | `number` | O peso de alumínio em kg.      | `> 0`      |
 
-### Example
+### Exemplo
 
 ```json
 {
@@ -31,38 +31,38 @@ Represents the raw input values entered by the user.
 
 ## 2. EnvironmentalSavings
 
-Represents the full, calculated results. This object is structured to directly support the UI, including the stacked bar charts. Each primary metric is an object containing a total value and a detailed breakdown by material.
+Representa os resultados completos e calculados. Este objeto é estruturado para suportar diretamente a UI, incluindo os gráficos de barras empilhadas. Cada métrica primária é um objeto contendo um valor total e um detalhamento por material.
 
-- **Type**: `object`
-- **Description**: A nested object where each key represents a calculated metric.
+- **Tipo**: `object`
+- **Descrição**: Um objeto aninhado onde cada chave representa uma métrica calculada.
 
-### Main Structure
+### Estrutura Principal
 
-| Key                      | Type     | Description                                              |
-| :----------------------- | :------- | :------------------------------------------------------- |
-| `[metricName]`           | `object` | An object representing a single calculated metric.       |
-| `[equivalentMetricName]` | `number` | A direct numerical value for simpler equivalent metrics. |
+| Chave                        | Tipo     | Descrição                                                         |
+| :--------------------------- | :------- | :---------------------------------------------------------------- |
+| `[nomeDaMetrica]`            | `object` | Um objeto representando uma única métrica calculada.              |
+| `[nomeDaMetricaEquivalente]` | `number` | Um valor numérico direto para métricas equivalentes mais simples. |
 
-### Structure for a Chartable Metric
+### Estrutura para uma Métrica Graficável
 
-Each primary metric object follows this structure:
+Cada objeto de métrica primária segue esta estrutura:
 
-| Attribute | Type     | Description                                                     |
-| :-------- | :------- | :-------------------------------------------------------------- |
-| `label`   | `string` | A human-readable label for the metric (e.g., "Redução de GEE"). |
-| `total`   | `number` | The total calculated value for the metric.                      |
-| `unit`    | `string` | The unit of measurement (e.g., "tCO2e", "kWh", "kl").           |
-| `sources` | `array`  | An array of objects, each detailing a material's contribution.  |
+| Atributo  | Tipo     | Descrição                                                              |
+| :-------- | :------- | :--------------------------------------------------------------------- |
+| `label`   | `string` | Um rótulo legível por humanos para a métrica (ex: "Redução de GEE").   |
+| `total`   | `number` | O valor total calculado para a métrica.                                |
+| `unit`    | `string` | A unidade de medida (ex: "tCO2e", "kWh", "kl").                        |
+| `sources` | `array`  | Um array de objetos, cada um detalhando a contribuição de um material. |
 
-#### `sources` Array Object Structure
+#### Estrutura do Objeto do Array `sources`
 
-| Attribute    | Type     | Description                                           |
-| :----------- | :------- | :---------------------------------------------------- |
-| `material`   | `string` | The name of the material (e.g., "Papel", "Alumínio"). |
-| `value`      | `number` | The calculated value for that specific material.      |
-| `percentage` | `number` | The percentage contribution to the `total`.           |
+| Atributo     | Tipo     | Descrição                                          |
+| :----------- | :------- | :------------------------------------------------- |
+| `material`   | `string` | O nome do material (ex: "Papel", "Alumínio").      |
+| `value`      | `number` | O valor calculado para aquele material específico. |
+| `percentage` | `number` | A contribuição percentual para o `total`.          |
 
-### Example
+### Exemplo
 
 ```json
 {
