@@ -202,19 +202,19 @@ _Esta lista de verificação é atualizada durante o fluxo de execução_
 
 **Status da Fase**:
 
-- [ ] Fase 0: Pesquisa completa (comando /plan)
-- [ ] Fase 1: Design completo (comando /plan)
-- [ ] Fase 2: Planejamento de tarefas completo (comando /plan - descrever apenas a abordagem)
-- [ ] Fase 3: Tarefas geradas (comando /tasks)
-- [ ] Fase 4: Implementação completa
-- [ ] Fase 5: Validação aprovada
+- [x] Fase 0: Pesquisa completa (comando /plan)
+- [x] Fase 1: Design completo (comando /plan)
+- [x] Fase 2: Planejamento de tarefas completo (comando /plan - descrever apenas a abordagem)
+- [x] Fase 3: Tarefas geradas (comando /tasks)
+- [x] Fase 4: Implementação completa
+- [x] Fase 5: Validação aprovada
 
 **Status do Portão**:
 
 - [x] Verificação Inicial da Constituição: PASSA
-- [ ] Verificação da Constituição Pós-Design: PASSA
+- [x] Verificação da Constituição Pós-Design: PASSA
 - [x] Todos os PRECISA DE ESCLARECIMENTO resolvidos
-- [ ] Desvios de complexidade documentados
+- [x] Desvios de complexidade documentados
 
 ---
 

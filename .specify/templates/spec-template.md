@@ -1,116 +1,131 @@
-# Feature Specification: [FEATURE NAME]
+# Especificação de Feature: [NOME DA FEATURE]
 
-**Feature Branch**: `[###-feature-name]`  
-**Created**: [DATE]  
-**Status**: Draft  
-**Input**: User description: "$ARGUMENTS"
+**Branch da Feature**: `[###-feature-name]`
+**Criado em**: [DATA]
+**Status**: Rascunho
+**Entrada**: Descrição do usuário: "$ARGUMENTOS"
 
-## Execution Flow (main)
+## Fluxo de Execução (main)
+
 ```
-1. Parse user description from Input
-   → If empty: ERROR "No feature description provided"
-2. Extract key concepts from description
-   → Identify: actors, actions, data, constraints
-3. For each unclear aspect:
-   → Mark with [NEEDS CLARIFICATION: specific question]
-4. Fill User Scenarios & Testing section
-   → If no clear user flow: ERROR "Cannot determine user scenarios"
-5. Generate Functional Requirements
-   → Each requirement must be testable
-   → Mark ambiguous requirements
-6. Identify Key Entities (if data involved)
-7. Run Review Checklist
-   → If any [NEEDS CLARIFICATION]: WARN "Spec has uncertainties"
-   → If implementation details found: ERROR "Remove tech details"
-8. Return: SUCCESS (spec ready for planning)
+1. Analisar descrição do usuário da Entrada
+   → Se vazia: ERRO "Nenhuma descrição da feature fornecida"
+2. Extrair conceitos chave da descrição
+   → Identificar: atores, ações, dados, restrições
+3. Para cada aspecto não claro:
+   → Marcar com [PRECISA DE ESCLARECIMENTO: pergunta específica]
+4. Preencher a seção Cenários de Usuário & Testes
+   → Se não houver um fluxo de usuário claro: ERRO "Não é possível determinar os cenários de usuário"
+5. Gerar Requisitos Funcionais
+   → Cada requisito deve ser testável
+   → Marcar requisitos ambíguos
+6. Identificar Entidades Chave (se envolver dados)
+7. Executar Checklist de Revisão
+   → Se houver algum [PRECISA DE ESCLARECIMENTO]: AVISO "A especificação tem incertezas"
+   → Se detalhes de implementação forem encontrados: ERRO "Remova os detalhes técnicos"
+8. Retornar: SUCESSO (especificação pronta para o planejamento)
 ```
 
 ---
 
-## ⚡ Quick Guidelines
-- ✅ Focus on WHAT users need and WHY
-- ❌ Avoid HOW to implement (no tech stack, APIs, code structure)
-- 👥 Written for business stakeholders, not developers
+## ⚡ Diretrizes Rápidas
 
-### Section Requirements
-- **Mandatory sections**: Must be completed for every feature
-- **Optional sections**: Include only when relevant to the feature
-- When a section doesn't apply, remove it entirely (don't leave as "N/A")
+- ✅ Foco no QUE os usuários precisam e PORQUÊ
+- ❌ Evitar o COMO implementar (sem pilha de tecnologia, APIs, estrutura de código)
+- 👥 Escrito para stakeholders de negócio, não para desenvolvedores
 
-### For AI Generation
-When creating this spec from a user prompt:
-1. **Mark all ambiguities**: Use [NEEDS CLARIFICATION: specific question] for any assumption you'd need to make
-2. **Don't guess**: If the prompt doesn't specify something (e.g., "login system" without auth method), mark it
-3. **Think like a tester**: Every vague requirement should fail the "testable and unambiguous" checklist item
-4. **Common underspecified areas**:
-   - User types and permissions
-   - Data retention/deletion policies  
-   - Performance targets and scale
-   - Error handling behaviors
-   - Integration requirements
-   - Security/compliance needs
+### Requisitos da Seção
 
----
+- **Seções obrigatórias**: Devem ser completadas para cada feature
+- **Seções opcionais**: Incluir apenas quando relevante para a feature
+- Quando uma seção não se aplica, remova-a completamente (não deixe como "N/A")
 
-## User Scenarios & Testing *(mandatory)*
+### Para Geração por IA
 
-### Primary User Story
-[Describe the main user journey in plain language]
+Ao criar esta especificação a partir de um prompt do usuário:
 
-### Acceptance Scenarios
-1. **Given** [initial state], **When** [action], **Then** [expected outcome]
-2. **Given** [initial state], **When** [action], **Then** [expected outcome]
-
-### Edge Cases
-- What happens when [boundary condition]?
-- How does system handle [error scenario]?
-
-## Requirements *(mandatory)*
-
-### Functional Requirements
-- **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]  
-- **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
-- **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
-- **FR-005**: System MUST [behavior, e.g., "log all security events"]
-
-*Example of marking unclear requirements:*
-- **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
-- **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
-
-### Key Entities *(include if feature involves data)*
-- **[Entity 1]**: [What it represents, key attributes without implementation]
-- **[Entity 2]**: [What it represents, relationships to other entities]
+1.  **Marque todas as ambiguidades**: Use [PRECISA DE ESCLARECIMENTO: pergunta específica] para qualquer suposição que você precise fazer
+2.  **Não adivinhe**: Se o prompt não especificar algo (ex: "sistema de login" sem método de autenticação), marque-o
+3.  **Pense como um testador**: Todo requisito vago deve falhar no item da checklist "testável e inequívoco"
+4.  **Áreas comuns subespecificadas**:
+    - Tipos de usuário e permissões
+    - Políticas de retenção/exclusão de dados
+    - Metas de desempenho e escala
+    - Comportamentos de tratamento de erros
+    - Requisitos de integração
+    - Necessidades de segurança/conformidade
 
 ---
 
-## Review & Acceptance Checklist
-*GATE: Automated checks run during main() execution*
+## Cenários de Usuário & Testes _(obrigatório)_
 
-### Content Quality
-- [ ] No implementation details (languages, frameworks, APIs)
-- [ ] Focused on user value and business needs
-- [ ] Written for non-technical stakeholders
-- [ ] All mandatory sections completed
+### História de Usuário Principal
 
-### Requirement Completeness
-- [ ] No [NEEDS CLARIFICATION] markers remain
-- [ ] Requirements are testable and unambiguous  
-- [ ] Success criteria are measurable
-- [ ] Scope is clearly bounded
-- [ ] Dependencies and assumptions identified
+[Descreva a jornada principal do usuário em linguagem simples]
+
+### Cenários de Aceitação
+
+1.  **Dado** [estado inicial], **Quando** [ação], **Então** [resultado esperado]
+2.  **Dado** [estado inicial], **Quando** [ação], **Então** [resultado esperado]
+
+### Casos Extremos
+
+- O que acontece quando [condição de limite]?
+- Como o sistema lida com [cenário de erro]?
+
+## Requisitos _(obrigatório)_
+
+### Requisitos Funcionais
+
+- **RF-001**: O sistema DEVE [capacidade específica, ex: "permitir que usuários criem contas"]
+- **RF-002**: O sistema DEVE [capacidade específica, ex: "validar endereços de e-mail"]
+- **RF-003**: Os usuários DEVEM poder [interação chave, ex: "redefinir sua senha"]
+- **RF-004**: O sistema DEVE [requisito de dados, ex: "persistir as preferências do usuário"]
+- **RF-005**: O sistema DEVE [comportamento, ex: "registrar todos os eventos de segurança"]
+
+_Exemplo de marcação de requisitos não claros:_
+
+- **RF-006**: O sistema DEVE autenticar usuários via [PRECISA DE ESCLARECIMENTO: método de autenticação não especificado - e-mail/senha, SSO, OAuth?]
+- **RF-007**: O sistema DEVE reter os dados do usuário por [PRECISA DE ESCLARECIMENTO: período de retenção não especificado]
+
+### Entidades Chave _(incluir se a feature envolver dados)_
+
+- **[Entidade 1]**: [O que representa, atributos chave sem implementação]
+- **[Entidade 2]**: [O que representa, relacionamentos com outras entidades]
 
 ---
 
-## Execution Status
-*Updated by main() during processing*
+## Checklist de Revisão e Aceitação
 
-- [ ] User description parsed
-- [ ] Key concepts extracted
-- [ ] Ambiguities marked
-- [ ] User scenarios defined
-- [ ] Requirements generated
-- [ ] Entities identified
-- [ ] Review checklist passed
+_GATE: Verificações automatizadas executadas durante a execução do main()_
+
+### Qualidade do Conteúdo
+
+- [ ] Sem detalhes de implementação (linguagens, frameworks, APIs)
+- [ ] Focado no valor para o usuário e nas necessidades de negócio
+- [ ] Escrito para stakeholders não técnicos
+- [ ] Todas as seções obrigatórias preenchidas
+
+### Completude dos Requisitos
+
+- [ ] Nenhum marcador [PRECISA DE ESCLARECIMENTO] permanece
+- [ ] Requisitos são testáveis e inequívocos
+- [ ] Critérios de sucesso são mensuráveis
+- [ ] Escopo está claramente delimitado
+- [ ] Dependências e premissas identificadas
+
+---
+
+## Status da Execução
+
+_Atualizado por main() durante o processamento_
+
+- [ ] Descrição do usuário analisada
+- [ ] Conceitos chave extraídos
+- [ ] Ambigüidades marcadas
+- [ ] Cenários de usuário definidos
+- [ ] Requisitos gerados
+- [ ] Entidades identificadas
+- [ ] Checklist de revisão aprovado
 
 ---

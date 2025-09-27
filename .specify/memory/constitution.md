@@ -1,60 +1,60 @@
 <!--
-SYNC IMPACT REPORT
-Version change: N/A → 1.0.0
-Modified principles: N/A (initial creation)
-Added sections: Development Workflow, Quality Gates
-Removed sections: N/A
-Templates requiring updates:
-  ✅ .specify/templates/plan-template.md (version reference updated, agent name updated)
-  ✅ .specify/memory/constitution.md (this file)
-Follow-up TODOs: None
+RELATÓRIO DE IMPACTO DA SINCRONIZAÇÃO
+Mudança de versão: N/A → 1.0.0
+Princípios modificados: N/A (criação inicial)
+Seções adicionadas: Fluxo de Trabalho de Desenvolvimento, Portões de Qualidade
+Seções removidas: N/A
+Templates que requerem atualização:
+  ✅ .specify/templates/plan-template.md (referência de versão atualizada, nome do agente atualizado)
+  ✅ .specify/memory/constitution.md (este arquivo)
+TODOs de acompanhamento: Nenhum
 -->
 
-# Coco Calculator Constitution
+# Constituição do Coco Calculator
 
-## Core Principles
+## Princípios Fundamentais
 
-### I. Feature-First Development
+### I. Desenvolvimento Orientado a Features (Feature-First)
 
-Every feature MUST follow the specify framework workflow: /specify → /plan → /tasks → /implement. Features start as specifications, progress through planning and task generation, then implementation. All features must be self-contained, independently testable, and documented with clear purpose.
+Toda feature DEVE seguir o fluxo de trabalho do framework specify: /specify → /plan → /tasks → /implement. As features começam como especificações, progridem através do planejamento e geração de tarefas, e então para a implementação. Todas as features devem ser autocontidas, testáveis independentemente e documentadas com um propósito claro.
 
-### II. Test-Driven Development (NON-NEGOTIABLE)
+### II. Desenvolvimento Orientado a Testes (TDD - INEGOCIÁVEL)
 
-TDD is mandatory: Tests written → User approved → Tests fail → Then implement. Red-Green-Refactor cycle strictly enforced. Contract tests must be written before any implementation begins. Integration tests required for all user scenarios.
+TDD é obrigatório: Testes escritos → Aprovados pelo usuário → Testes falham → Então implementar. O ciclo Vermelho-Verde-Refatorar é estritamente aplicado. Testes de contrato devem ser escritos antes de qualquer implementação começar. Testes de integração são necessários para todos os cenários de usuário.
 
-### III. Specification-Driven Architecture
+### III. Arquitetura Orientada à Especificação
 
-All features MUST begin with a complete specification document. Specifications focus on WHAT users need and WHY, avoiding HOW implementation details. Every requirement must be testable and unambiguous. Specifications serve as the single source of truth for feature scope.
+Todas as features DEVEM começar com um documento de especificação completo. As especificações focam no QUE os usuários precisam e PORQUÊ, evitando detalhes de COMO implementar. Todo requisito deve ser testável e inequívoco. As especificações servem como a única fonte da verdade para o escopo da feature.
 
-### IV. Task-Based Implementation
+### IV. Implementação Baseada em Tarefas
 
-Implementation follows generated task lists with clear dependencies and parallel execution opportunities. Tasks are categorized by phase: Setup → Tests → Models → Services → Endpoints → Polish. Each task specifies exact file paths and execution order.
+A implementação segue listas de tarefas geradas com dependências claras e oportunidades de execução paralela. As tarefas são categorizadas por fase: Configuração → Testes → Modelos → Serviços → Endpoints → Polimento. Cada tarefa especifica os caminhos exatos dos arquivos e a ordem de execução.
 
-### V. Constitution Compliance
+### V. Conformidade com a Constituição
 
-All development work MUST pass constitution checks before proceeding. Complexity must be justified with documented rationale. The constitution supersedes all other practices and requires formal amendment procedures for changes.
+Todo o trabalho de desenvolvimento DEVE passar pelas verificações da constituição antes de prosseguir. A complexidade deve ser justificada com uma fundamentação documentada. A constituição se sobrepõe a todas as outras práticas e requer procedimentos formais de emenda para alterações.
 
-## Development Workflow
+## Fluxo de Trabalho de Desenvolvimento
 
-### Feature Development Process
+### Processo de Desenvolvimento de Features
 
-1. **Specification**: Create feature spec using /specify command
-2. **Planning**: Generate implementation plan using /plan command
-3. **Task Generation**: Create task list using /tasks command
-4. **Implementation**: Execute tasks following TDD principles
-5. **Validation**: Run tests, execute quickstart scenarios, performance validation
+1.  **Especificação**: Criar especificação da feature usando o comando /specify
+2.  **Planejamento**: Gerar plano de implementação usando o comando /plan
+3.  **Geração de Tarefas**: Criar lista de tarefas usando o comando /tasks
+4.  **Implementação**: Executar tarefas seguindo os princípios de TDD
+5.  **Validação**: Rodar testes, executar cenários de início rápido, validação de desempenho
 
-### Quality Gates
+### Portões de Qualidade
 
-- Initial Constitution Check: Must pass before Phase 0 research
-- Post-Design Constitution Check: Must pass before implementation
-- All NEEDS CLARIFICATION markers must be resolved
-- Complexity deviations must be documented with justification
+- Verificação Inicial da Constituição: Deve passar antes da pesquisa da Fase 0
+- Verificação da Constituição Pós-Design: Deve passar antes da implementação
+- Todos os marcadores PRECISA DE ESCLARECIMENTO devem ser resolvidos
+- Desvios de complexidade devem ser documentados com justificativa
 
-## Governance
+## Governança
 
-This constitution supersedes all other development practices. All PRs and reviews must verify compliance with constitutional principles. Complexity must be justified with documented rationale. Use the generated agent-specific guidance files for runtime development guidance.
+Esta constituição se sobrepõe a todas as outras práticas de desenvolvimento. Todos os PRs e revisões devem verificar a conformidade com os princípios constitucionais. A complexidade deve ser justificada com uma fundamentação documentada. Use os arquivos de orientação específicos do agente gerados para orientação de desenvolvimento em tempo de execução.
 
-**Amendment Procedure**: Changes to this constitution require documentation of impact, approval from project maintainers, and migration plan for dependent templates and processes.
+**Procedimento de Emenda**: Alterações a esta constituição requerem documentação do impacto, aprovação dos mantenedores do projeto e plano de migração para templates e processos dependentes.
 
-**Version**: 1.0.0 | **Ratified**: 2025-01-27 | **Last Amended**: 2025-01-27
+**Versão**: 1.0.0 | **Ratificado em**: 2025-01-27 | **Última Emenda**: 2025-01-27
