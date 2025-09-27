@@ -114,17 +114,14 @@ Tarefa: "Teste de integração de autenticação em tests/integration/test_auth.
 _Aplicado durante a execução do main()_
 
 1.  **Dos Contratos**:
-
     - Cada arquivo de contrato → tarefa de teste de contrato [P]
     - Cada endpoint → tarefa de implementação
 
 2.  **Do Modelo de Dados**:
-
     - Cada entidade → tarefa de criação de modelo [P]
     - Relacionamentos → tarefas da camada de serviço
 
 3.  **Das Histórias de Usuário**:
-
     - Cada história → teste de integração [P]
     - Cenários de início rápido → tarefas de validação
 

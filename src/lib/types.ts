@@ -3,19 +3,19 @@
  * All values are in kilograms.
  */
 export interface RecyclingInput {
-  paperInKg: number;
-  plasticInKg: number;
-  glassInKg: number;
-  aluminumInKg: number;
+	paperInKg: number;
+	plasticInKg: number;
+	glassInKg: number;
+	aluminumInKg: number;
 }
 
 /**
  * Represents the contribution of a single material to a total metric.
  */
 export interface MetricSource {
-  material: "Papel" | "Plástico" | "Vidro" | "Alumínio";
-  value: number;
-  percentage: number;
+	material: "Papel" | "Plástico" | "Vidro" | "Alumínio";
+	value: number;
+	percentage: number;
 }
 
 /**
@@ -23,10 +23,10 @@ export interface MetricSource {
  * and a breakdown of contributions by material.
  */
 export interface ChartableMetric {
-  label: string;
-  total: number;
-  unit: string;
-  sources: MetricSource[];
+	label: string;
+	total: number;
+	unit: string;
+	sources: MetricSource[];
 }
 
 /**
@@ -34,32 +34,32 @@ export interface ChartableMetric {
  * This is the structured output designed to be consumed by the UI.
  */
 export interface EnvironmentalSavings {
-  // Primary Metrics (Chartable)
-  virginMaterialSaved_t: ChartableMetric;
-  energySaved_kWh: ChartableMetric;
-  ghgReduction_tCO2e: ChartableMetric;
-  waterSaved_kl: ChartableMetric;
-  bauxiteSaved_t: ChartableMetric;
-  oilSaved_barrels: ChartableMetric;
-  sandSaved_t: ChartableMetric;
-  treesSaved_units: ChartableMetric;
-  forestAreaSaved_ha_year: ChartableMetric;
+	// Primary Metrics (Chartable)
+	virginMaterialSaved_t: ChartableMetric;
+	energySaved_kWh: ChartableMetric;
+	ghgReduction_tCO2e: ChartableMetric;
+	waterSaved_kl: ChartableMetric;
+	bauxiteSaved_t: ChartableMetric;
+	oilSaved_barrels: ChartableMetric;
+	sandSaved_t: ChartableMetric;
+	treesSaved_units: ChartableMetric;
+	forestAreaSaved_ha_year: ChartableMetric;
 
-  // Equivalent Metrics (Direct Values)
-  equiv_home_energy_days: number;
-  equiv_ev_km: number;
-  equiv_phone_charges: number;
-  equiv_showers: number;
-  equiv_gas_car_km: number;
+	// Equivalent Metrics (Direct Values)
+	equiv_home_energy_days: number;
+	equiv_ev_km: number;
+	equiv_phone_charges: number;
+	equiv_showers: number;
+	equiv_gas_car_km: number;
 
-  // Financial Metrics (Not yet implemented in spec, placeholders for now)
-  energySavings_BRL: number;
-  carbonCredits_BRL: number;
-  waterSavings_BRL: number;
-  bauxiteSavings_BRL: number;
-  oilSavings_BRL: number;
-  sandSavings_BRL: number;
-  landfillCostSavings_BRL: number;
+	// Financial Metrics (Not yet implemented in spec, placeholders for now)
+	energySavings_BRL: number;
+	carbonCredits_BRL: number;
+	waterSavings_BRL: number;
+	bauxiteSavings_BRL: number;
+	oilSavings_BRL: number;
+	sandSavings_BRL: number;
+	landfillCostSavings_BRL: number;
 }
 
 /**
@@ -68,3 +68,5 @@ export interface EnvironmentalSavings {
  * environmental savings report.
  */
 export type CalculateSavings = (input: RecyclingInput) => EnvironmentalSavings;
+
+export type ViewMode = "dashboard" | "table" | "cards";

@@ -33,13 +33,13 @@
 
 ## Resumo
 
-Este plano descreve a implementação de uma calculadora de reciclagem simples baseada na web. O sistema receberá entradas do usuário para pesos de diferentes materiais (Papel, Plástico, Vidro, Alumínio) e calculará 21 métricas de impacto ambiental e econômico em tempo real. A abordagem técnica envolve a construção de uma aplicação de página única usando Vite, React e shadcn/ui para a biblioteca de componentes e gráficos. A aplicação será puramente do lado do cliente, usando `localStorage` para persistência de dados.
+Este plano descreve a implementação de uma calculadora de reciclagem simples baseada na web. O sistema receberá entradas do usuário para pesos de diferentes materiais (Papel, Plástico, Vidro, Alumínio) e calculará 21 métricas de impacto ambiental e econômico em tempo real. A abordagem técnica envolve a construção de uma aplicação de página única usando Vite, React e shadcn/ui para a biblioteca de componentes e gráficos. A aplicação será puramente do lado do cliente, usando parâmetros de URL para persistência de dados através da biblioteca `nuqs`. A aplicação também incluirá um seletor de tema (dark mode) e múltiplos modos de visualização dos resultados (dashboard, cards, tabela).
 
 ## Contexto Técnico
 
 **Linguagem/Versão**: TypeScript (via Vite)
-**Dependências Primárias**: Vite, React, shadcn/ui, recharts (para gráficos)
-**Armazenamento**: `localStorage` do navegador
+**Dependências Primárias**: Vite, React, shadcn/ui, recharts (para gráficos), nuqs
+**Armazenamento**: Parâmetros de URL (via `nuqs`)
 **Testes**: Vitest, React Testing Library
 **Plataforma Alvo**: Navegador Web
 **Tipo de Projeto**: Projeto único (apenas frontend)
@@ -100,7 +100,6 @@ tests/
 ## Fase 0: Esboço e Pesquisa
 
 1.  **Extrair incógnitas do Contexto Técnico** acima:
-
     - Pesquisar melhores práticas para usar shadcn/ui com Vite e React.
     - Pesquisar a melhor biblioteca de gráficos compatível com shadcn/ui (recharts é um candidato principal).
     - Pesquisar padrões para lidar com cálculos complexos e em tempo real no React.
@@ -126,23 +125,19 @@ tests/
 _Pré-requisitos: research.md completo_
 
 1.  **Extrair entidades da especificação da feature** → `data-model.md`:
-
     - Nome da entidade, campos, relacionamentos
     - Regras de validação dos requisitos
     - Transições de estado, se aplicável
 
 2.  **Gerar contratos de API** a partir dos requisitos funcionais:
-
     - Como esta é uma aplicação apenas do lado do cliente, nenhum contrato de API é necessário. Este passo se concentrará em definir o contrato para o módulo principal `calculator.ts`.
 
 3.  **Gerar testes de contrato** a partir dos contratos:
-
     - Um arquivo de teste para o módulo `calculator.ts`.
     - Afirmar esquemas de entrada/saída e a correção do cálculo.
     - Os testes devem falhar (ainda não há implementação).
 
 4.  **Extrair cenários de teste** das histórias de usuário:
-
     - Cada história → cenário de teste de integração para o componente principal `CalculatorPage.tsx`.
     - Teste de início rápido = passos de validação da história.
 

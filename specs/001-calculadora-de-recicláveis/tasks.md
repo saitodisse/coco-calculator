@@ -30,9 +30,9 @@
 **CRÍTICO: Estes testes DEVEM ser escritos e DEVEM FALHAR antes de qualquer implementação.**
 
 - [x] **T012**: [P] Criar teste de integração `tests/integration/CalculatorPage.test.tsx` para a página principal.
-  - Cenário de Teste 1: Verificar se a inserção de um valor em um campo de entrada atualiza os resultados corretamente.
-  - Cenário de Teste 2: Verificar se os dados persistem após uma recarga de página simulada (mockando o localStorage).
-  - Cenário de Teste 3: Verificar se os gráficos são renderizados com os dados corretos quando várias entradas são fornecidas.
+    - Cenário de Teste 1: Verificar se a inserção de um valor em um campo de entrada atualiza os resultados corretamente.
+    - Cenário de Teste 2: Verificar se os dados persistem após uma recarga de página simulada (mockando o localStorage).
+    - Cenário de Teste 3: Verificar se os gráficos são renderizados com os dados corretos quando várias entradas são fornecidas.
 
 ## Fase 3.5: Implementação da UI
 
@@ -50,6 +50,28 @@
 - [x] **T021**: [P] Estilizar a aplicação usando Tailwind CSS para garantir um layout limpo e responsivo.
 - [x] **T022**: Executar todos os cenários de `quickstart.md` manualmente para validar a aplicação final.
 
+## Fase 3.7: Novas Features (Pós-MVP)
+
+- [ ] **T023**: Adicionar componentes shadcn/ui para novas features: `npx shadcn-ui@latest add toggle-group toggle table dropdown-menu button`.
+- [ ] **T024**: Instalar a dependência `nuqs` para gerenciamento de estado na URL: `npm install nuqs`.
+- [ ] **T025**: Implementar funcionalidade de modo escuro (dark mode).
+    - [ ] **T025.1**: Criar o `ThemeProvider` em `src/components/theme-provider.tsx`.
+    - [ ] **T025.2**: Envolver a aplicação com o `ThemeProvider` em `src/App.tsx`.
+    - [ ] **T025.3**: Criar o componente `ModeToggle` em `src/components/mode-toggle.tsx`.
+    - [ ] **T025.4**: Adicionar o `ModeToggle` ao cabeçalho da `CalculatorPage`.
+- [ ] **T026**: Refatorar o gerenciamento de estado para usar `nuqs`.
+    - [ ] **T026.1**: Atualizar o hook `useRecyclingCalculator` para usar `useQueryStates` para as entradas do formulário.
+    - [ ] **T026.2**: Remover completamente o uso de `localStorage` do hook.
+    - [ ] **T026.3**: Remover o estado de carregamento (`isLoaded`) da `CalculatorPage`.
+- [ ] **T027**: Implementar modos de visualização de resultados.
+    - [ ] **T027.1**: Adicionar um seletor de modo de visualização (`ToggleGroup`) na `CalculatorPage`.
+    - [ ] **T027.2**: Armazenar o modo de visualização selecionado na URL usando `nuqs`.
+    - [ ] **T027.3**: Refatorar a visualização de cards existente para um componente `CardsView.tsx`.
+    - [ ] **T027.4**: Criar um novo componente `TableView.tsx` para exibir os resultados em uma tabela.
+    - [ ] **T027.5**: Criar um componente placeholder `DashboardView.tsx`.
+    - [ ] **T027.6**: Renderizar condicionalmente a visualização apropriada na `CalculatorPage`.
+- [ ] **T028**: Atualizar a documentação (`spec.md`, `plan.md`, `tasks.md`) para refletir todas as novas features e mudanças.
+
 ## Dependências
 
 - **T001-T006** (Configuração) devem ser concluídas antes de todas as outras tarefas.
@@ -58,6 +80,7 @@
 - **T012** (Testes de UI) deve ser concluído antes de **T013-T019**.
 - **T013-T016** podem ser feitos em paralelo.
 - **T017** e **T018** são sequenciais e dependem da conclusão dos componentes de UI.
+- **T023-T028** são um novo conjunto de features e podem ser trabalhados após a conclusão do MVP inicial.
 
 ## Exemplo Paralelo
 

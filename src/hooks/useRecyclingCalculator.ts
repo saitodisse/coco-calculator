@@ -1,76 +1,44 @@
-import { useState, useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { calculateSavings } from "@/lib/calculator";
 import type { RecyclingInput, EnvironmentalSavings } from "@/lib/types";
-
-const STORAGE_KEY = "recycling-calculator-inputs";
+import { useQueryStates, parseAsInteger } from "nuqs";
 
 const initialInputs: RecyclingInput = {
-  paperInKg: 0,
-  plasticInKg: 0,
-  glassInKg: 0,
-  aluminumInKg: 0,
+	paperInKg: 0,
+	plasticInKg: 0,
+	glassInKg: 0,
+	aluminumInKg: 0,
+};
+
+const parsers = {
+	paperInKg: parseAsInteger.withDefault(initialInputs.paperInKg),
+	plasticInKg: parseAsInteger.withDefault(initialInputs.plasticInKg),
+	glassInKg: parseAsInteger.withDefault(initialInputs.glassInKg),
+	aluminumInKg: parseAsInteger.withDefault(initialInputs.aluminumInKg),
 };
 
 export function useRecyclingCalculator() {
-  const [inputs, setInputs] = useState<RecyclingInput>(initialInputs);
-  const [isLoaded, setIsLoaded] = useState(false);
+	const [inputs, setInputs] = useQueryStates(parsers);
 
-  // Load data from localStorage on mount
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsedInputs = JSON.parse(saved);
-        // Validate the parsed data
-        if (
-          typeof parsedInputs === "object" &&
-          typeof parsedInputs.paperInKg === "number" &&
-          typeof parsedInputs.plasticInKg === "number" &&
-          typeof parsedInputs.glassInKg === "number" &&
-          typeof parsedInputs.aluminumInKg === "number"
-        ) {
-          setInputs(parsedInputs);
-        }
-      }
-    } catch (error) {
-      console.warn("Failed to load saved inputs from localStorage:", error);
-    } finally {
-      setIsLoaded(true);
-    }
-  }, []);
+	const savings: EnvironmentalSavings = useMemo(() => {
+		return calculateSavings(inputs);
+	}, [inputs]);
 
-  // Save to localStorage whenever inputs change
-  useEffect(() => {
-    if (isLoaded) {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(inputs));
-      } catch (error) {
-        console.warn("Failed to save inputs to localStorage:", error);
-      }
-    }
-  }, [inputs, isLoaded]);
+	const updateInput = (field: keyof RecyclingInput, value: number) => {
+		setInputs({
+			...inputs,
+			[field]: Math.max(0, value),
+		});
+	};
 
-  // Calculate savings using useMemo for performance
-  const savings: EnvironmentalSavings = useMemo(() => {
-    return calculateSavings(inputs);
-  }, [inputs]);
+	const resetInputs = () => {
+		setInputs(initialInputs);
+	};
 
-  const updateInput = (field: keyof RecyclingInput, value: number) => {
-    setInputs((prev) => ({
-      ...prev,
-      [field]: Math.max(0, value), // Ensure non-negative values
-    }));
-  };
-
-  const resetInputs = () => {
-    setInputs(initialInputs);
-  };
-
-  return {
-    inputs,
-    savings,
-    updateInput,
-    resetInputs,
-    isLoaded,
-  };
+	return {
+		inputs,
+		savings,
+		updateInput,
+		resetInputs,
+	};
 }

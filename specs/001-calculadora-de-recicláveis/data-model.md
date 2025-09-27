@@ -22,10 +22,10 @@ Representa os valores de entrada brutos inseridos pelo usuário.
 
 ```json
 {
-  "paperInKg": 100,
-  "plasticInKg": 20,
-  "glassInKg": 0,
-  "aluminumInKg": 50
+	"paperInKg": 100,
+	"plasticInKg": 20,
+	"glassInKg": 0,
+	"aluminumInKg": 50
 }
 ```
 
@@ -66,28 +66,28 @@ Cada objeto de métrica primária segue esta estrutura:
 
 ```json
 {
-  "ghgReduction_tCO2e": {
-    "label": "Redução de GEE",
-    "total": 0.519,
-    "unit": "tCO2e",
-    "sources": [
-      { "material": "Papel", "value": 0.0292, "percentage": 5.6 },
-      { "material": "Alumínio", "value": 0.4591, "percentage": 88.5 },
-      { "material": "Plástico", "value": 0.03, "percentage": 5.8 },
-      { "material": "Vidro", "value": 0, "percentage": 0 }
-    ]
-  },
-  "waterSaved_kl": {
-    "label": "Economia de Água",
-    "total": 2.599,
-    "unit": "kl",
-    "sources": [
-      { "material": "Papel", "value": 2.3, "percentage": 88.5 },
-      { "material": "Alumínio", "value": 0.199, "percentage": 7.7 },
-      { "material": "Plástico", "value": 0.1, "percentage": 3.8 },
-      { "material": "Vidro", "value": 0, "percentage": 0 }
-    ]
-  },
-  "equiv_home_energy_days": 68.8
+	"ghgReduction_tCO2e": {
+		"label": "Redução de GEE",
+		"total": 0.519,
+		"unit": "tCO2e",
+		"sources": [
+			{ "material": "Papel", "value": 0.0292, "percentage": 5.6 },
+			{ "material": "Alumínio", "value": 0.4591, "percentage": 88.5 },
+			{ "material": "Plástico", "value": 0.03, "percentage": 5.8 },
+			{ "material": "Vidro", "value": 0, "percentage": 0 }
+		]
+	},
+	"waterSaved_kl": {
+		"label": "Economia de Água",
+		"total": 2.599,
+		"unit": "kl",
+		"sources": [
+			{ "material": "Papel", "value": 2.3, "percentage": 88.5 },
+			{ "material": "Alumínio", "value": 0.199, "percentage": 7.7 },
+			{ "material": "Plástico", "value": 0.1, "percentage": 3.8 },
+			{ "material": "Vidro", "value": 0, "percentage": 0 }
+		]
+	},
+	"equiv_home_energy_days": 68.8
 }
 ```

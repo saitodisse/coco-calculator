@@ -118,7 +118,6 @@ reais capturados acima]
 ## Fase 0: Esboço e Pesquisa
 
 1.  **Extrair incógnitas do Contexto Técnico** acima:
-
     - Para cada PRECISA DE ESCLARECIMENTO → tarefa de pesquisa
     - Para cada dependência → tarefa de melhores práticas
     - Para cada integração → tarefa de padrões
@@ -144,25 +143,21 @@ reais capturados acima]
 _Pré-requisitos: research.md completo_
 
 1.  **Extrair entidades da especificação da feature** → `data-model.md`:
-
     - Nome da entidade, campos, relacionamentos
     - Regras de validação dos requisitos
     - Transições de estado, se aplicável
 
 2.  **Gerar contratos de API** a partir dos requisitos funcionais:
-
     - Para cada ação do usuário → endpoint
     - Usar padrões REST/GraphQL padrão
     - Gerar esquema OpenAPI/GraphQL para `/contracts/`
 
 3.  **Gerar testes de contrato** a partir dos contratos:
-
     - Um arquivo de teste por endpoint
     - Afirmar esquemas de requisição/resposta
     - Os testes devem falhar (ainda não há implementação)
 
 4.  **Extrair cenários de teste** das histórias de usuário:
-
     - Cada história → cenário de teste de integração
     - Teste de início rápido = passos de validação da história
 
