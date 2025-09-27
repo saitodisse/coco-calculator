@@ -42,7 +42,7 @@ export function MetricCard({ metric }: MetricCardProps) {
 							</div>
 							<div className="space-y-1">
 								{metric.sources
-									.filter((source) => source.value > 0)
+									?.filter((source) => source.value > 0)
 									.map((source) => (
 										<div
 											key={source.material}

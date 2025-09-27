@@ -3,7 +3,74 @@ import type {
 	EnvironmentalSavings,
 	ChartableMetric,
 	MetricSource,
+	FonteReferencia,
 } from "./types";
+import { Material } from "./types";
+import {
+	referenciasGerais,
+	metricasEquivalencia,
+} from "../../referencias/referencias_gerais";
+import { METRIC_METADATA } from "./metric-metadata";
+
+/**
+ * Calculates the value for a given metric, material, and weight.
+ * It uses the central `referenciasGerais` object as the source of truth for formulas.
+ * @param weightKg The weight of the material in kilograms.
+ * @param material The material type.
+ * @param metricKey The key of the metric to calculate.
+ * @returns The calculated value, or 0 if no formula is found.
+ */
+function getMetricValue(
+	weightKg: number,
+	material: Material,
+	metricKey: string
+): number {
+	const formula = referenciasGerais[material]?.dados?.[metricKey]?.formula;
+	return formula ? formula({ input_kg: weightKg }) : 0;
+}
+
+/**
+ * Calculates the total value for an equivalent metric based on user input.
+ * It uses the `metricasEquivalencia` object for calculation formulas.
+ * @param input The user's recycling input.
+ * @param metricKey The key of the equivalent metric to calculate.
+ * @returns The total calculated value for the equivalent metric.
+ */
+function getEquivalentMetricValue(
+	input: RecyclingInput,
+	metricKey: string
+): number {
+	let total = 0;
+	if (input.paperInKg > 0) {
+		const formula =
+			metricasEquivalencia.papel?.[
+				metricKey as keyof typeof metricasEquivalencia.papel
+			]?.formula;
+		if (formula) total += formula({ input_kg: input.paperInKg });
+	}
+	if (input.aluminumInKg > 0) {
+		const formula =
+			metricasEquivalencia.aluminio?.[
+				metricKey as keyof typeof metricasEquivalencia.aluminio
+			]?.formula;
+		if (formula) total += formula({ input_kg: input.aluminumInKg });
+	}
+	if (input.plasticInKg > 0) {
+		const formula =
+			metricasEquivalencia.plastico?.[
+				metricKey as keyof typeof metricasEquivalencia.plastico
+			]?.formula;
+		if (formula) total += formula({ input_kg: input.plasticInKg });
+	}
+	if (input.glassInKg > 0) {
+		const formula =
+			metricasEquivalencia.vidro?.[
+				metricKey as keyof typeof metricasEquivalencia.vidro
+			]?.formula;
+		if (formula) total += formula({ input_kg: input.glassInKg });
+	}
+	return total;
+}
 
 /**
  * Core calculation function for recycling environmental savings.
@@ -12,164 +79,144 @@ import type {
 export function calculateSavings(input: RecyclingInput): EnvironmentalSavings {
 	// Initialize all material contributions in the order expected by tests
 	const materials = [
-		{ name: "Papel" as const, weight: input.paperInKg },
-		{ name: "Alumínio" as const, weight: input.aluminumInKg },
-		{ name: "Plástico" as const, weight: input.plasticInKg },
-		{ name: "Vidro" as const, weight: input.glassInKg },
+		{ name: Material.PAPEL, weight: input.paperInKg },
+		{ name: Material.ALUMINIO, weight: input.aluminumInKg },
+		{ name: Material.PLATICO, weight: input.plasticInKg },
+		{ name: Material.VIDRO, weight: input.glassInKg },
 	];
 
-	// Calculate individual material contributions for each metric
-	const virginMaterialContributions = materials.map((m) => ({
-		material: m.name,
-		value: calculateVirginMaterialSaved(m.weight, m.name),
-	}));
-
-	const energyContributions = materials.map((m) => ({
-		material: m.name,
-		value: calculateEnergySaved(m.weight, m.name),
-	}));
-
-	const ghgContributions = materials.map((m) => ({
-		material: m.name,
-		value: calculateGHGReduction(m.weight, m.name),
-	}));
-
-	const waterContributions = materials.map((m) => ({
-		material: m.name,
-		value: calculateWaterSaved(m.weight, m.name),
-	}));
-
-	const bauxiteContributions = materials.map((m) => ({
-		material: m.name,
-		value: calculateBauxiteSaved(m.weight, m.name),
-	}));
-
-	const oilContributions = materials.map((m) => ({
-		material: m.name,
-		value: calculateOilSaved(m.weight, m.name),
-	}));
-
-	const sandContributions = materials.map((m) => ({
-		material: m.name,
-		value: calculateSandSaved(m.weight, m.name),
-	}));
-
-	const treesContributions = materials.map((m) => ({
-		material: m.name,
-		value: calculateTreesSaved(m.weight, m.name),
-	}));
-
-	const forestAreaContributions = materials.map((m) => ({
-		material: m.name,
-		value: calculateForestAreaSaved(m.weight, m.name),
-	}));
-
-	// Calculate totals and percentages for each metric
-	const virginMaterialTotal = virginMaterialContributions.reduce(
-		(sum, c) => sum + c.value,
-		0
+	const primaryMetricsKeys = Object.values(METRIC_METADATA).filter(
+		(m) => m.category === "primary"
 	);
-	const energyTotal = energyContributions.reduce(
-		(sum, c) => sum + c.value,
-		0
-	);
-	const ghgTotal = ghgContributions.reduce((sum, c) => sum + c.value, 0);
-	const waterTotal = waterContributions.reduce((sum, c) => sum + c.value, 0);
-	const bauxiteTotal = bauxiteContributions.reduce(
-		(sum, c) => sum + c.value,
-		0
-	);
-	const oilTotal = oilContributions.reduce((sum, c) => sum + c.value, 0);
-	const sandTotal = sandContributions.reduce((sum, c) => sum + c.value, 0);
-	const treesTotal = treesContributions.reduce((sum, c) => sum + c.value, 0);
-	const forestAreaTotal = forestAreaContributions.reduce(
-		(sum, c) => sum + c.value,
-		0
-	);
+
+	const contributions: Record<
+		string,
+		Array<{ material: Material; value: number }>
+	> = {};
+	const totals: Record<string, number> = {};
+
+	for (const metric of primaryMetricsKeys) {
+		const metricKey = metric.key;
+		contributions[metricKey] = materials.map((m) => ({
+			material: m.name,
+			value: getMetricValue(m.weight, m.name, metricKey),
+		}));
+		totals[metricKey] = contributions[metricKey].reduce(
+			(sum, c) => sum + c.value,
+			0
+		);
+	}
 
 	// Create chartable metrics with sources
 	const createChartableMetric = (
-		label: string,
-		unit: string,
+		metricKey: string,
 		total: number,
-		contributions: Array<{ material: string; value: number }>
+		metricContributions: Array<{ material: string; value: number }>
 	): ChartableMetric => {
-		const sources: MetricSource[] = contributions.map((c) => ({
+		const metadata = METRIC_METADATA[metricKey];
+		const sources: MetricSource[] = metricContributions.map((c) => ({
 			material: c.material as MetricSource["material"],
 			value: c.value,
 			percentage: total > 0 ? (c.value / total) * 100 : 0,
 		}));
 
+		const references: FonteReferencia[] = [];
+		const referenceUrls = new Set<string>();
+
+		for (const contribution of metricContributions) {
+			if (contribution.value > 0) {
+				const fontes =
+					referenciasGerais[contribution.material as Material]
+						?.dados?.[metricKey]?.fontes;
+				if (fontes) {
+					for (const fonte of fontes) {
+						if (!referenceUrls.has(fonte.url)) {
+							references.push(fonte);
+							referenceUrls.add(fonte.url);
+						}
+					}
+				}
+			}
+		}
+
 		return {
-			label,
+			label: metadata?.name || metricKey,
 			total,
-			unit,
+			unit: metadata?.unit || "",
 			sources,
+			metadata,
+			references,
 		};
 	};
 
 	// Calculate equivalent metrics
-	const equiv_home_energy_days = calculateEquivalentHomeEnergyDays(input);
-	const equiv_ev_km = calculateEquivalentEVKm(input);
-	const equiv_phone_charges = calculateEquivalentPhoneCharges(input);
-	const equiv_showers = calculateEquivalentShowers(input);
-	const equiv_gas_car_km = calculateEquivalentGasCarKm(input);
+	const equiv_home_energy_days = getEquivalentMetricValue(
+		input,
+		METRIC_METADATA.equiv_home_energy_days.key
+	);
+	const equiv_ev_km = getEquivalentMetricValue(
+		input,
+		METRIC_METADATA.equiv_ev_km.key
+	);
+	const equiv_phone_charges = getEquivalentMetricValue(
+		input,
+		METRIC_METADATA.equiv_phone_charges.key
+	);
+	const equiv_showers = getEquivalentMetricValue(
+		input,
+		METRIC_METADATA.equiv_showers.key
+	);
+	const equiv_gas_car_km = getEquivalentMetricValue(
+		input,
+		METRIC_METADATA.equiv_gas_car_km.key
+	);
 
 	return {
 		// Primary Metrics (Chartable)
 		virginMaterialSaved_t: createChartableMetric(
-			"Substituição de Matéria Virgem",
-			"t",
-			virginMaterialTotal,
-			virginMaterialContributions
+			METRIC_METADATA.virginMaterialSaved_t.key,
+			totals[METRIC_METADATA.virginMaterialSaved_t.key],
+			contributions[METRIC_METADATA.virginMaterialSaved_t.key]
 		),
 		energySaved_kWh: createChartableMetric(
-			"Substituição Energética",
-			"kWh",
-			energyTotal,
-			energyContributions
+			METRIC_METADATA.energySaved_kWh.key,
+			totals[METRIC_METADATA.energySaved_kWh.key],
+			contributions[METRIC_METADATA.energySaved_kWh.key]
 		),
 		ghgReduction_tCO2e: createChartableMetric(
-			"Redução de GEE",
-			"tCO2e",
-			ghgTotal,
-			ghgContributions
+			METRIC_METADATA.ghgReduction_tCO2e.key,
+			totals[METRIC_METADATA.ghgReduction_tCO2e.key],
+			contributions[METRIC_METADATA.ghgReduction_tCO2e.key]
 		),
 		waterSaved_kl: createChartableMetric(
-			"Economia de Água",
-			"kl",
-			waterTotal,
-			waterContributions
+			METRIC_METADATA.waterSaved_kl.key,
+			totals[METRIC_METADATA.waterSaved_kl.key],
+			contributions[METRIC_METADATA.waterSaved_kl.key]
 		),
 		bauxiteSaved_t: createChartableMetric(
-			"Economia de Bauxita",
-			"t",
-			bauxiteTotal,
-			bauxiteContributions
+			METRIC_METADATA.bauxiteSaved_t.key,
+			totals[METRIC_METADATA.bauxiteSaved_t.key],
+			contributions[METRIC_METADATA.bauxiteSaved_t.key]
 		),
 		oilSaved_barrels: createChartableMetric(
-			"Economia de Petróleo",
-			"barris",
-			oilTotal,
-			oilContributions
+			METRIC_METADATA.oilSaved_barrels.key,
+			totals[METRIC_METADATA.oilSaved_barrels.key],
+			contributions[METRIC_METADATA.oilSaved_barrels.key]
 		),
 		sandSaved_t: createChartableMetric(
-			"Economia de Areia",
-			"t",
-			sandTotal,
-			sandContributions
+			METRIC_METADATA.sandSaved_t.key,
+			totals[METRIC_METADATA.sandSaved_t.key],
+			contributions[METRIC_METADATA.sandSaved_t.key]
 		),
 		treesSaved_units: createChartableMetric(
-			"Economia de Árvores",
-			"un.",
-			treesTotal,
-			treesContributions
+			METRIC_METADATA.treesSaved_units.key,
+			totals[METRIC_METADATA.treesSaved_units.key],
+			contributions[METRIC_METADATA.treesSaved_units.key]
 		),
 		forestAreaSaved_ha_year: createChartableMetric(
-			"Área de Monocultura Poupada",
-			"ha.ano",
-			forestAreaTotal,
-			forestAreaContributions
+			METRIC_METADATA.forestAreaSaved_ha_year.key,
+			totals[METRIC_METADATA.forestAreaSaved_ha_year.key],
+			contributions[METRIC_METADATA.forestAreaSaved_ha_year.key]
 		),
 
 		// Equivalent Metrics (Direct Values)
@@ -188,165 +235,4 @@ export function calculateSavings(input: RecyclingInput): EnvironmentalSavings {
 		sandSavings_BRL: 0,
 		landfillCostSavings_BRL: 0,
 	};
-}
-
-// Individual calculation functions for each material and metric
-
-function calculateVirginMaterialSaved(
-	weightKg: number,
-	material: string
-): number {
-	switch (material) {
-		case "Papel":
-			return weightKg * 0.00085;
-		case "Alumínio":
-			return weightKg / 1000; // 1kg = 0.001t
-		case "Plástico":
-			return weightKg * 0.0009;
-		case "Vidro":
-			return weightKg * 0.0012;
-		default:
-			return 0;
-	}
-}
-
-function calculateEnergySaved(weightKg: number, material: string): number {
-	switch (material) {
-		case "Papel":
-			return weightKg * 3.44;
-		case "Alumínio":
-			return weightKg * 14.0;
-		case "Plástico":
-			return weightKg * 0.005774;
-		case "Vidro":
-			return weightKg * 1.449;
-		default:
-			return 0;
-	}
-}
-
-function calculateGHGReduction(weightKg: number, material: string): number {
-	switch (material) {
-		case "Papel":
-			return weightKg * 0.000292;
-		case "Alumínio":
-			return weightKg * 0.009183;
-		case "Plástico":
-			return weightKg * 0.0015;
-		case "Vidro":
-			return weightKg * 0.000121;
-		default:
-			return 0;
-	}
-}
-
-function calculateWaterSaved(weightKg: number, material: string): number {
-	switch (material) {
-		case "Papel":
-			return weightKg * 0.023;
-		case "Alumínio":
-			return weightKg * 0.00399;
-		case "Plástico":
-			return weightKg * 0.0057;
-		case "Vidro":
-			return weightKg * 0.0013;
-		default:
-			return 0;
-	}
-}
-
-function calculateBauxiteSaved(weightKg: number, material: string): number {
-	switch (material) {
-		case "Alumínio":
-			return weightKg * 0.004;
-		default:
-			return 0;
-	}
-}
-
-function calculateOilSaved(weightKg: number, material: string): number {
-	switch (material) {
-		case "Papel":
-			return weightKg * 0.0075;
-		case "Alumínio":
-			return weightKg * 0.04;
-		case "Plástico":
-			return weightKg * 0.0163;
-		default:
-			return 0;
-	}
-}
-
-function calculateSandSaved(weightKg: number, material: string): number {
-	switch (material) {
-		case "Vidro":
-			return weightKg * 0.0012;
-		default:
-			return 0;
-	}
-}
-
-function calculateTreesSaved(weightKg: number, material: string): number {
-	switch (material) {
-		case "Papel":
-			return weightKg * 0.017;
-		default:
-			return 0;
-	}
-}
-
-function calculateForestAreaSaved(weightKg: number, material: string): number {
-	switch (material) {
-		case "Papel":
-			return weightKg * 0.000066;
-		default:
-			return 0;
-	}
-}
-
-// Equivalent metrics calculation functions
-
-function calculateEquivalentHomeEnergyDays(input: RecyclingInput): number {
-	const paperDays = input.paperInKg * 0.688;
-	const aluminumDays = input.aluminumInKg * 0.0; // No specific factor for aluminum
-	const plasticDays = input.plasticInKg * 0.0; // No specific factor for plastic
-	const glassDays = input.glassInKg * 0.0; // No specific factor for glass
-
-	return paperDays + aluminumDays + plasticDays + glassDays;
-}
-
-function calculateEquivalentEVKm(input: RecyclingInput): number {
-	const paperKm = input.paperInKg * 0.0; // No specific factor for paper
-	const aluminumKm = input.aluminumInKg * 82.35;
-	const plasticKm = input.plasticInKg * 0.0; // No specific factor for plastic
-	const glassKm = input.glassInKg * 0.0; // No specific factor for glass
-
-	return paperKm + aluminumKm + plasticKm + glassKm;
-}
-
-function calculateEquivalentPhoneCharges(input: RecyclingInput): number {
-	const paperCharges = input.paperInKg * 0.0; // No specific factor for paper
-	const aluminumCharges = input.aluminumInKg * 0.0; // No specific factor for aluminum
-	const plasticCharges = input.plasticInKg * 0.0; // No specific factor for plastic
-	const glassCharges = input.glassInKg * 97;
-
-	return paperCharges + aluminumCharges + plasticCharges + glassCharges;
-}
-
-function calculateEquivalentShowers(input: RecyclingInput): number {
-	const paperShowers = input.paperInKg * 0.255;
-	const aluminumShowers = input.aluminumInKg * 0.0; // No specific factor for aluminum
-	const plasticShowers = input.plasticInKg * 0.0; // No specific factor for plastic
-	const glassShowers = input.glassInKg * 0.0; // No specific factor for glass
-
-	return paperShowers + aluminumShowers + plasticShowers + glassShowers;
-}
-
-function calculateEquivalentGasCarKm(input: RecyclingInput): number {
-	const paperKm = input.paperInKg * 2.43;
-	const aluminumKm = input.aluminumInKg * 76.5;
-	const plasticKm = input.plasticInKg * 0.0; // No specific factor for plastic
-	const glassKm = input.glassInKg * 1.0;
-
-	return paperKm + aluminumKm + plasticKm + glassKm;
 }

@@ -239,6 +239,24 @@ Cada métrica calculada seguirá a estrutura JSON abaixo. Esta estrutura é proj
 
 ---
 
+## Fontes de Referência
+
+As referências foram implementadas na pasta `referencias/` do projeto e estão integradas diretamente nas métricas calculadas. Cada métrica agora inclui sua lista de fontes de referência, permitindo rastreabilidade completa dos fatores de cálculo utilizados.
+
+### Estrutura de Referências
+
+Cada métrica calculada inclui uma propriedade `references` que contém um array de objetos `FonteReferencia` com as seguintes propriedades:
+
+- `nome`: Nome da fonte ou organização responsável
+- `citação`: Formato de citação acadêmica da fonte
+- `url`: Link para a fonte original (quando disponível)
+
+### Implementação
+
+As referências são centralizadas no arquivo `referencias/referencias_gerais.ts` e são automaticamente associadas a cada métrica durante o cálculo, garantindo que cada resultado tenha sua rastreabilidade documentada.
+
+---
+
 ## Checklist de Revisão e Aceitação
 
 _GATE: Verificações automatizadas executadas durante a execução do main()_
@@ -252,8 +270,8 @@ _GATE: Verificações automatizadas executadas durante a execução do main()_
 
 ### Completude dos Requisitos
 
-- [x] Nenhum marcador [PRECISA DE ESCLARECIMENTO] permanece
+- [ ] Nenhum marcador [PRECISA DE ESCLARECIMENTO] ou [PRECISA DE PREENCHIMENTO] permanece
 - [x] Requisitos são testáveis e inequívocos
 - [x] Critérios de sucesso são mensuráveis
 - [x] Escopo está claramente delimitado
-- [x] Dependências e premissas identificadas
+- [x] Dependências e premissas identificadas (fontes de cálculo)

@@ -70,7 +70,36 @@
     - [ ] **T027.4**: Criar um novo componente `TableView.tsx` para exibir os resultados em uma tabela.
     - [ ] **T027.5**: Criar um componente placeholder `DashboardView.tsx`.
     - [ ] **T027.6**: Renderizar condicionalmente a visualização apropriada na `CalculatorPage`.
-- [ ] **T028**: Atualizar a documentação (`spec.md`, `plan.md`, `tasks.md`) para refletir todas as novas features e mudanças.
+- [x] **T028**: Atualizar a documentação (`spec.md`, `plan.md`, `tasks.md`) para refletir todas as novas features e mudanças.
+
+## Fase 3.8: Documentação
+
+- [x] **T029**: Pesquisar e preencher as fontes de referência para os fatores de cálculo na seção `Fontes de Referência` do arquivo `specs/001-calculadora-de-recicláveis/spec.md`.
+    - [x] **T029.1**: Encontrar e documentar a fonte para os fatores de Papel e Papelão.
+    - [x] **T029.2**: Encontrar e documentar a fonte para os fatores de Alumínio.
+    - [x] **T029.3**: Encontrar e documentar a fonte para os fatores de Plástico.
+    - [x] **T029.4**: Encontrar e documentar a fonte para os fatores de Vidro.
+    - [x] **T029.5**: Encontrar e documentar a fonte para os fatores de Equivalência Criativa.
+    - [x] **T029.6**: Encontrar e documentar a fonte para os fatores de Valor Econômico Equivalente.
+
+## Fase 3.9: Refatoração de Tipos e Referências
+
+- [x] **T030**: Refatorar tipos para centralizar enums em `src/lib/types.ts`.
+    - [x] **T030.1**: Mover enum `Material` para `src/lib/types.ts`.
+    - [x] **T030.2**: Mover enums `Unidade` e `UnidadeSaida` para `src/lib/types.ts` e consolidar em um único enum `Unidade`.
+    - [x] **T030.3**: Adicionar interface `FonteReferencia` em `src/lib/types.ts`.
+    - [x] **T030.4**: Atualizar interface `ChartableMetric` para incluir propriedades `metadata` e `references`.
+- [x] **T031**: Refatorar sistema de referências para integrar nas métricas.
+    - [x] **T031.1**: Atualizar `referencias/referencias_gerais.ts` para usar enums centralizados.
+    - [x] **T031.2**: Modificar `src/lib/calculator.ts` para incluir referências nas métricas calculadas.
+    - [x] **T031.3**: Atualizar `src/lib/metric-metadata.ts` para incluir chave única em cada metadado.
+- [x] **T032**: Corrigir componentes para trabalhar com nova estrutura.
+    - [x] **T032.1**: Atualizar `src/components/calculator/DashboardView.tsx` para passar propriedades completas para `MetricCard`.
+    - [x] **T032.2**: Adicionar verificação de segurança em `src/components/calculator/MetricCard.tsx` para `sources`.
+    - [x] **T032.3**: Atualizar `src/components/charts/MetricChart.tsx` para usar enum `Material` centralizado.
+- [x] **T033**: Corrigir testes para usar nova estrutura de tipos.
+    - [x] **T033.1**: Atualizar importações em `tests/contract/calculator.test.ts` para usar `Material` como enum.
+    - [x] **T033.2**: Verificar e corrigir todos os testes para usar nova estrutura.
 
 ## Dependências
 
@@ -81,6 +110,8 @@
 - **T013-T016** podem ser feitos em paralelo.
 - **T017** e **T018** são sequenciais e dependem da conclusão dos componentes de UI.
 - **T023-T028** são um novo conjunto de features e podem ser trabalhados após a conclusão do MVP inicial.
+- **T029** é uma tarefa de documentação e pode ser trabalhada independentemente das novas features de UI.
+- **T030-T033** (Refatoração de Tipos e Referências) são tarefas de melhoria arquitetural que podem ser executadas em paralelo após a conclusão do MVP.
 
 ## Exemplo Paralelo
 

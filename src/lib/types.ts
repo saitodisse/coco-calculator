@@ -1,3 +1,28 @@
+import { MetricMetadata } from "./metric-metadata";
+
+export enum Material {
+	PAPEL = "papel",
+	ALUMINIO = "aluminio",
+	PLATICO = "plastico",
+	VIDRO = "vidro",
+}
+
+export enum Unidade {
+	KG = "kg",
+	KWH = "kWh",
+	KL = "kl",
+	UN = "un.",
+}
+
+/**
+ * Represents a reference source for a calculation or metric.
+ */
+export interface FonteReferencia {
+	nome: string;
+	citação: string;
+	url: string;
+}
+
 /**
  * Represents the raw input values for the recycling calculation.
  * All values are in kilograms.
@@ -13,7 +38,7 @@ export interface RecyclingInput {
  * Represents the contribution of a single material to a total metric.
  */
 export interface MetricSource {
-	material: "Papel" | "Plástico" | "Vidro" | "Alumínio";
+	material: Material;
 	value: number;
 	percentage: number;
 }
@@ -27,6 +52,22 @@ export interface ChartableMetric {
 	total: number;
 	unit: string;
 	sources: MetricSource[];
+	/** Metadados da métrica (nome, descrição, categoria) */
+	metadata?: MetricMetadata;
+	/** Fontes de referência para a métrica */
+	references?: FonteReferencia[];
+}
+
+/**
+ * Represents a metric with complete metadata information
+ */
+export interface MetricWithMetadata {
+	/** Chave única da métrica */
+	key: string;
+	/** Valor da métrica */
+	value: number;
+	/** Metadados completos da métrica */
+	metadata: MetricMetadata;
 }
 
 /**

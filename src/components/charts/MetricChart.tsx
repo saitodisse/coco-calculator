@@ -9,16 +9,17 @@ import {
 	Cell,
 } from "recharts";
 import type { ChartableMetric } from "@/lib/types";
+import { Material } from "@/lib/types";
 
 interface MetricChartProps {
 	metric: ChartableMetric;
 }
 
 const COLORS = {
-	Papel: "#10b981", // emerald-500
-	Alumínio: "#3b82f6", // blue-500
-	Plástico: "#f59e0b", // amber-500
-	Vidro: "#8b5cf6", // violet-500
+	[Material.PAPEL]: "#10b981", // emerald-500
+	[Material.ALUMINIO]: "#3b82f6", // blue-500
+	[Material.PLATICO]: "#f59e0b", // amber-500
+	[Material.VIDRO]: "#8b5cf6", // violet-500
 };
 
 export function MetricChart({ metric }: MetricChartProps) {

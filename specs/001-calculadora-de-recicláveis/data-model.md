@@ -62,6 +62,21 @@ Cada objeto de métrica primária segue esta estrutura:
 | `value`      | `number` | O valor calculado para aquele material específico. |
 | `percentage` | `number` | A contribuição percentual para o `total`.          |
 
+#### Propriedades Adicionais da Métrica
+
+| Atributo     | Tipo                | Descrição                                                      |
+| :----------- | :------------------ | :------------------------------------------------------------- |
+| `metadata`   | `MetricMetadata`    | Metadados da métrica (nome, descrição, categoria, chave única) |
+| `references` | `FonteReferencia[]` | Array de fontes de referência para a métrica                   |
+
+#### Estrutura do Objeto `FonteReferencia`
+
+| Atributo  | Tipo     | Descrição                                      |
+| :-------- | :------- | :--------------------------------------------- |
+| `nome`    | `string` | Nome da fonte ou organização responsável       |
+| `citação` | `string` | Formato de citação acadêmica da fonte          |
+| `url`     | `string` | Link para a fonte original (quando disponível) |
+
 ### Exemplo
 
 ```json
@@ -75,6 +90,20 @@ Cada objeto de métrica primária segue esta estrutura:
 			{ "material": "Alumínio", "value": 0.4591, "percentage": 88.5 },
 			{ "material": "Plástico", "value": 0.03, "percentage": 5.8 },
 			{ "material": "Vidro", "value": 0, "percentage": 0 }
+		],
+		"metadata": {
+			"key": "ghgReduction_tCO2e",
+			"name": "Redução de Gases de Efeito Estufa",
+			"description": "Redução de emissões de gases de efeito estufa através da reciclagem",
+			"unit": "tCO2e",
+			"category": "primary"
+		},
+		"references": [
+			{
+				"nome": "EPA - Environmental Protection Agency",
+				"citação": "EPA (2023). Waste Reduction Model (WARM). U.S. Environmental Protection Agency.",
+				"url": "https://www.epa.gov/warm"
+			}
 		]
 	},
 	"waterSaved_kl": {
@@ -86,6 +115,20 @@ Cada objeto de métrica primária segue esta estrutura:
 			{ "material": "Alumínio", "value": 0.199, "percentage": 7.7 },
 			{ "material": "Plástico", "value": 0.1, "percentage": 3.8 },
 			{ "material": "Vidro", "value": 0, "percentage": 0 }
+		],
+		"metadata": {
+			"key": "waterSaved_kl",
+			"name": "Economia de Água",
+			"description": "Quantidade de água economizada através da reciclagem",
+			"unit": "kl",
+			"category": "primary"
+		},
+		"references": [
+			{
+				"nome": "Water Footprint Network",
+				"citação": "Hoekstra, A.Y. et al. (2011). The Water Footprint Assessment Manual. Water Footprint Network.",
+				"url": "https://waterfootprint.org"
+			}
 		]
 	},
 	"equiv_home_energy_days": 68.8

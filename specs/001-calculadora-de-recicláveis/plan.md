@@ -81,13 +81,18 @@ src/
 │   └── charts/            # Componentes de gráficos
 ├── lib/
 │   ├── calculator.ts      # Lógica de cálculo principal
-│   └── types.ts           # Tipos e interfaces TypeScript
+│   ├── types.ts           # Tipos e interfaces TypeScript (centralizados)
+│   ├── metric-metadata.ts # Metadados das métricas
+│   └── utils.ts           # Utilitários
 ├── hooks/
 │   └── useRecyclingCalculator.ts # Hook para estado e cálculos
 ├── pages/
 │   └── CalculatorPage.tsx # Componente da página principal
-└── App.tsx
+├── App.tsx
 └── main.tsx
+
+referencias/
+└── referencias_gerais.ts  # Fórmulas e referências centralizadas
 
 tests/
 ├── contract/
@@ -203,6 +208,7 @@ _Esta lista de verificação é atualizada durante o fluxo de execução_
 - [x] Fase 3: Tarefas geradas (comando /tasks)
 - [x] Fase 4: Implementação completa
 - [x] Fase 5: Validação aprovada
+- [x] Fase 6: Refatoração de tipos e referências completa
 
 **Status do Portão**:
 
