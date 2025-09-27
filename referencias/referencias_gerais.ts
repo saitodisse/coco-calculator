@@ -8,9 +8,11 @@ import { FonteReferencia, Material, Unidade } from "@/lib/types";
 
 // Tipos para as fontes de referência
 export interface DadosMetrica {
+	descricaoFormula: string;
 	formula: ({ input_kg }: { input_kg: number }) => number;
 	unidade_entrada: Unidade;
 	unidade_saida: Unidade;
+	sobreFontes: string;
 	fontes: FonteReferencia[];
 }
 
@@ -31,99 +33,75 @@ export const referenciasGerais: ReferenciasGerais = {
 		dados: {
 			// Material Virgem Economizado
 			[METRIC_METADATA.virginMaterialSaved_t.key]: {
+				// Descrição da fórmula para ser exibida na UI
+				descricaoFormula:
+					"Este fator representa um rendimento de 85% no processo de reciclagem, uma média consolidada da indústria.",
+
+				// A fórmula em si
 				formula: ({ input_kg }) => input_kg * 0.00085,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.KG,
-				fontes: [
-					{
-						nome: "Placeholder Source",
-						citação:
-							"Placeholder citation for paper energy savings.",
-						url: "",
-					},
-				],
+
+				// Um resumo sobre a base de dados para a UI
+				sobreFontes:
+					"O rendimento da reciclagem de papel é bem documentado. As fontes incluem relatórios de agências ambientais, associações industriais e estudos de ACV (Análise de Ciclo de Vida).",
+
+				// A lista detalhada de fontes
+				fontes: [],
 			},
 			// Energia Economizada
 			[METRIC_METADATA.energySaved_kWh.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 3.44,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.KWH,
-				fontes: [
-					{
-						nome: "Placeholder Source",
-						citação:
-							"Placeholder citation for paper energy savings.",
-						url: "#",
-					},
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 			// Redução de Gases de Efeito Estufa
 			[METRIC_METADATA.ghgReduction_tCO2e.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 0.000292,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.KG,
-				fontes: [
-					{
-						nome: "Placeholder Source",
-						citação:
-							"Placeholder citation for paper GHG reduction.",
-						url: "#",
-					},
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 			// Água Economizada
 			[METRIC_METADATA.waterSaved_kl.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 0.023,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.KL,
-				fontes: [
-					{
-						nome: "Placeholder Source",
-						citação:
-							"Placeholder citation for paper water savings.",
-						url: "#",
-					},
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 			// Petróleo Economizado
 			[METRIC_METADATA.oilSaved_barrels.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 0.0075,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.UN,
-				fontes: [
-					{
-						nome: "Placeholder Source",
-						citação: "Placeholder citation for paper oil savings.",
-						url: "#",
-					},
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 			// Árvores Preservadas
 			[METRIC_METADATA.treesSaved_units.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 0.017,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.UN,
-				fontes: [
-					{
-						nome: "Placeholder Source",
-						citação: "Placeholder citation for paper trees saved.",
-						url: "#",
-					},
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 			// Área Florestal Preservada
 			[METRIC_METADATA.forestAreaSaved_ha_year.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 0.000066,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.UN, // ha.ano is not a unit yet
-				fontes: [
-					{
-						nome: "Placeholder Source",
-						citação:
-							"Placeholder citation for paper forest area saved.",
-						url: "#",
-					},
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 		},
 	},
@@ -132,57 +110,57 @@ export const referenciasGerais: ReferenciasGerais = {
 		dados: {
 			// Material Virgem Economizado
 			[METRIC_METADATA.virginMaterialSaved_t.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg / 1000,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.KG,
-				fontes: [
-					{ nome: "Placeholder", citação: "Placeholder", url: "#" },
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 			// Energia Economizada
 			[METRIC_METADATA.energySaved_kWh.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 14.0,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.KWH,
-				fontes: [
-					{ nome: "Placeholder", citação: "Placeholder", url: "#" },
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 			// Redução de Gases de Efeito Estufa
 			[METRIC_METADATA.ghgReduction_tCO2e.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 0.009183,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.KG,
-				fontes: [
-					{ nome: "Placeholder", citação: "Placeholder", url: "#" },
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 			// Água Economizada
 			[METRIC_METADATA.waterSaved_kl.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 0.00399,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.KL,
-				fontes: [
-					{ nome: "Placeholder", citação: "Placeholder", url: "#" },
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 			// Petróleo Economizado
 			[METRIC_METADATA.oilSaved_barrels.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 0.04,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.UN,
-				fontes: [
-					{ nome: "Placeholder", citação: "Placeholder", url: "#" },
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 			// Bauxita Economizada
 			[METRIC_METADATA.bauxiteSaved_t.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 0.004,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.KG,
-				fontes: [
-					{ nome: "Placeholder", citação: "Placeholder", url: "#" },
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 		},
 	},
@@ -191,48 +169,48 @@ export const referenciasGerais: ReferenciasGerais = {
 		dados: {
 			// Material Virgem Economizado
 			[METRIC_METADATA.virginMaterialSaved_t.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 0.0009,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.KG,
-				fontes: [
-					{ nome: "Placeholder", citação: "Placeholder", url: "#" },
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 			// Energia Economizada
 			[METRIC_METADATA.energySaved_kWh.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 0.005774,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.KWH,
-				fontes: [
-					{ nome: "Placeholder", citação: "Placeholder", url: "#" },
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 			// Redução de Gases de Efeito Estufa
 			[METRIC_METADATA.ghgReduction_tCO2e.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 0.0015,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.KG,
-				fontes: [
-					{ nome: "Placeholder", citação: "Placeholder", url: "#" },
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 			// Água Economizada
 			[METRIC_METADATA.waterSaved_kl.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 0.0057,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.KL,
-				fontes: [
-					{ nome: "Placeholder", citação: "Placeholder", url: "#" },
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 			// Petróleo Economizado
 			[METRIC_METADATA.oilSaved_barrels.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 0.0163,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.UN,
-				fontes: [
-					{ nome: "Placeholder", citação: "Placeholder", url: "#" },
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 		},
 	},
@@ -241,48 +219,48 @@ export const referenciasGerais: ReferenciasGerais = {
 		dados: {
 			// Material Virgem Economizado
 			[METRIC_METADATA.virginMaterialSaved_t.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 0.0012,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.KG,
-				fontes: [
-					{ nome: "Placeholder", citação: "Placeholder", url: "#" },
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 			// Energia Economizada
 			[METRIC_METADATA.energySaved_kWh.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 1.449,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.KWH,
-				fontes: [
-					{ nome: "Placeholder", citação: "Placeholder", url: "#" },
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 			// Redução de Gases de Efeito Estufa
 			[METRIC_METADATA.ghgReduction_tCO2e.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 0.000121,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.KG,
-				fontes: [
-					{ nome: "Placeholder", citação: "Placeholder", url: "#" },
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 			// Água Economizada
 			[METRIC_METADATA.waterSaved_kl.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 0.0013,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.KL,
-				fontes: [
-					{ nome: "Placeholder", citação: "Placeholder", url: "#" },
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 			// Areia Economizada
 			[METRIC_METADATA.sandSaved_t.key]: {
+				descricaoFormula: "",
 				formula: ({ input_kg }) => input_kg * 0.0012,
 				unidade_entrada: Unidade.KG,
 				unidade_saida: Unidade.KG,
-				fontes: [
-					{ nome: "Placeholder", citação: "Placeholder", url: "#" },
-				],
+				sobreFontes: "",
+				fontes: [],
 			},
 		},
 	},
@@ -296,96 +274,48 @@ export const metricasEquivalencia = {
 		// Energia para uma casa (dias)
 		[METRIC_METADATA.equiv_home_energy_days.key]: {
 			formula: ({ input_kg }: { input_kg: number }) => input_kg * 0.688,
-			fontes: [
-				{
-					nome: "Brazilian Energy Balance - Residential Consumption",
-					citação: "EPE (2023). Brazilian Energy Balance.",
-					url: "",
-				},
-			],
+			fontes: [],
 		},
 		// Banhos de 10 minutos (un.)
 		[METRIC_METADATA.equiv_showers.key]: {
 			formula: ({ input_kg }: { input_kg: number }) => input_kg * 0.255,
-			fontes: [
-				{
-					nome: "Brazilian Water Usage Statistics - Shower Consumption",
-					citação: "SNIRH (2023). Water Usage Statistics.",
-					url: "",
-				},
-			],
+			fontes: [],
 		},
 		// Km de carro a gasolina evitados (km)
 		[METRIC_METADATA.equiv_gas_car_km.key]: {
 			formula: ({ input_kg }: { input_kg: number }) => input_kg * 2.43,
-			fontes: [
-				{
-					nome: "Brazilian Vehicle Emissions - Gasoline Cars",
-					citação: "INMETRO (2023). Vehicle Consumption.",
-					url: "",
-				},
-			],
+			fontes: [],
 		},
 	},
 	aluminio: {
 		// Km em carro elétrico (km)
 		[METRIC_METADATA.equiv_ev_km.key]: {
 			formula: ({ input_kg }: { input_kg: number }) => input_kg * 82.35,
-			fontes: [
-				{
-					nome: "Brazilian Electric Vehicle Efficiency Standards",
-					citação: "ANFAVEA (2023). Electric Vehicles.",
-					url: "",
-				},
-			],
+			fontes: [],
 		},
 		// Km de carro a gasolina evitados (km)
 		[METRIC_METADATA.equiv_gas_car_km.key]: {
 			formula: ({ input_kg }: { input_kg: number }) => input_kg * 76.5,
-			fontes: [
-				{
-					nome: "Brazilian Vehicle Emissions - Gasoline Cars",
-					citação: "INMETRO (2023). Vehicle Consumption.",
-					url: "",
-				},
-			],
+			fontes: [],
 		},
 	},
 	plastico: {
 		// Km de carro a gasolina evitados (km)
 		[METRIC_METADATA.equiv_gas_car_km.key]: {
 			formula: ({ input_kg }: { input_kg: number }) => input_kg * 12.5,
-			fontes: [
-				{
-					nome: "Brazilian Vehicle Emissions - Gasoline Cars",
-					citação: "INMETRO (2023). Vehicle Consumption.",
-					url: "",
-				},
-			],
+			fontes: [],
 		},
 	},
 	vidro: {
 		// Cargas de bateria de celular (un.)
 		[METRIC_METADATA.equiv_phone_charges.key]: {
 			formula: ({ input_kg }: { input_kg: number }) => input_kg * 97,
-			fontes: [
-				{
-					nome: "Brazilian Smartphone Energy Consumption Study",
-					citação: "ANEEL (2023). Consumer Information.",
-					url: "",
-				},
-			],
+			fontes: [],
 		},
 		// Km de carro a gasolina evitados (km)
 		[METRIC_METADATA.equiv_gas_car_km.key]: {
 			formula: ({ input_kg }: { input_kg: number }) => input_kg * 1.0,
-			fontes: [
-				{
-					nome: "Brazilian Vehicle Emissions - Gasoline Cars",
-					citação: "INMETRO (2023). Vehicle Consumption.",
-					url: "",
-				},
-			],
+			fontes: [],
 		},
 	},
 };
