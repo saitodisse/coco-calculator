@@ -12,6 +12,15 @@ export enum Unidade {
 	KWH = "kWh",
 	KL = "kl",
 	UN = "un.",
+	T = "t",
+	TCO2E = "tCO2e",
+	BARRIS = "barris",
+	HA_ANO = "ha/ano",
+	DIAS = "dias",
+	KM = "km",
+	CARGAS = "cargas",
+	BANHOS = "banhos",
+	BRL = "R$",
 }
 
 /**
@@ -22,6 +31,34 @@ export interface FonteReferencia {
 	citação: string;
 	url: string;
 }
+
+// Novo tipo para os dados de uma métrica de equivalência
+export interface DadosMetricaEquivalencia {
+	formula: ({ input_kg }: { input_kg: number }) => number;
+	fontes: FonteReferencia[];
+}
+
+// Representa os dados de cálculo para UM material DENTRO de uma métrica principal
+export interface DadosMetricaPorMaterial {
+	descricaoFormula: string;
+	formula: ({ input_kg }: { input_kg: number }) => number;
+	// As equivalências agora ficam aninhadas aqui
+	equivalencias?: Partial<Record<string, DadosMetricaEquivalencia>>;
+}
+
+// A definição completa de uma métrica primária
+export interface DefinicaoMetrica {
+	/** Descrição geral sobre as fontes e a metodologia da métrica */
+	sobreFontes: string;
+	unidade_saida: Unidade;
+	/** Um record contendo os dados de cálculo para cada material aplicável */
+	dadosPorMaterial: Partial<Record<Material, DadosMetricaPorMaterial>>;
+	/** A lista de fontes gerais para a métrica, se houver */
+	fontes?: FonteReferencia[];
+}
+
+// O tipo do nosso objeto principal refatorado
+export type ReferenciasPorMetrica = Partial<Record<string, DefinicaoMetrica>>;
 
 /**
  * Represents the raw input values for the recycling calculation.
@@ -41,6 +78,7 @@ export interface MetricSource {
 	material: Material;
 	value: number;
 	percentage: number;
+	descricaoFormula?: string;
 }
 
 /**
@@ -56,6 +94,8 @@ export interface ChartableMetric {
 	metadata?: MetricMetadata;
 	/** Fontes de referência para a métrica */
 	references?: FonteReferencia[];
+	/** Descrição geral sobre as fontes e a metodologia da métrica */
+	sobreFontes?: string;
 }
 
 /**

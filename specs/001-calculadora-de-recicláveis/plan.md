@@ -272,3 +272,33 @@ _Esta lista de verificação é atualizada durante o fluxo de execução_
 ---
 
 _Baseado na Constituição v1.0.0 - Ver `/memory/constitution.md`_
+
+## Fase 9: Refatoração da Estrutura de Dados de Referências
+
+_Esta fase documenta a refatoração da estrutura de dados de `referencias_gerais.ts` para melhorar a manutenibilidade e a clareza._
+
+### Motivação
+
+A estrutura de dados original, organizada por `Material -> Métrica`, tornava a adição de novas métricas e o gerenciamento de equivalências uma tarefa complexa e propensa a erros.
+
+### Mudanças na Implementação
+
+1.  **Inversão da Estrutura de Dados**: A principal mudança foi inverter a organização para `Métrica -> Material`. Isso centraliza todas as informações de uma métrica em um único lugar.
+2.  **Aninhamento de Equivalências**: As métricas de equivalência agora estão aninhadas dentro das métricas primárias das quais derivam (ex: `equiv_home_energy_days` está dentro de `energySaved_kWh`), tornando a relação entre elas explícita.
+3.  **Tipos de Dados Atualizados**: As interfaces TypeScript em `src/lib/types.ts` foram atualizadas para refletir a nova estrutura, introduzindo `DefinicaoMetrica`, `DadosMetricaPorMaterial` e `DadosMetricaEquivalencia`.
+4.  **Lógica de Cálculo Adaptada**: A função `calculateSavings` em `src/lib/calculator.ts` foi refatorada para consumir a nova estrutura de dados de forma eficiente.
+5.  **Exibição na UI Aprimorada**: O componente `MetricCard.tsx` foi aprimorado para exibir informações contextuais mais ricas no popover, como `sobreFontes` e `descricaoFormula`, que agora são fornecidas pela nova estrutura.
+
+### Arquivos Modificados
+
+- `src/lib/types.ts` (atualizado)
+- `src/lib/referencias_gerais.ts` (refatorado)
+- `src/lib/calculator.ts` (refatorado)
+- `src/components/calculator/MetricCard.tsx` (atualizado)
+
+### Benefícios
+
+- **Manutenibilidade**: Adicionar uma nova métrica requer a adição de um único objeto na estrutura principal.
+- **Clareza**: A relação entre métricas primárias e de equivalência agora é explícita.
+- **Robustez**: A estrutura de dados está mais lógica e menos propensa a erros durante a manutenção.
+- **Transparência Aumentada**: A UI agora pode exibir informações mais detalhadas sobre a metodologia de cálculo.

@@ -56,18 +56,20 @@ Cada objeto de métrica primária segue esta estrutura:
 
 #### Estrutura do Objeto do Array `sources`
 
-| Atributo     | Tipo     | Descrição                                          |
-| :----------- | :------- | :------------------------------------------------- |
-| `material`   | `string` | O nome do material (ex: "Papel", "Alumínio").      |
-| `value`      | `number` | O valor calculado para aquele material específico. |
-| `percentage` | `number` | A contribuição percentual para o `total`.          |
+| Atributo           | Tipo     | Descrição                                                        |
+| :----------------- | :------- | :--------------------------------------------------------------- |
+| `material`         | `string` | O nome do material (ex: "Papel", "Alumínio").                    |
+| `value`            | `number` | O valor calculado para aquele material específico.               |
+| `percentage`       | `number` | A contribuição percentual para o `total`.                        |
+| `descricaoFormula` | `string` | (Opcional) A descrição da fórmula específica para este material. |
 
 #### Propriedades Adicionais da Métrica
 
-| Atributo     | Tipo                | Descrição                                                      |
-| :----------- | :------------------ | :------------------------------------------------------------- |
-| `metadata`   | `MetricMetadata`    | Metadados da métrica (nome, descrição, categoria, chave única) |
-| `references` | `FonteReferencia[]` | Array de fontes de referência para a métrica                   |
+| Atributo      | Tipo                | Descrição                                                              |
+| :------------ | :------------------ | :--------------------------------------------------------------------- |
+| `metadata`    | `MetricMetadata`    | Metadados da métrica (nome, descrição, categoria, chave única)         |
+| `references`  | `FonteReferencia[]` | Array de fontes de referência para a métrica                           |
+| `sobreFontes` | `string`            | (Opcional) Descrição geral sobre as fontes e a metodologia da métrica. |
 
 #### Estrutura do Objeto `FonteReferencia`
 
@@ -86,11 +88,27 @@ Cada objeto de métrica primária segue esta estrutura:
 		"total": 0.519,
 		"unit": "tCO2e",
 		"sources": [
-			{ "material": "Papel", "value": 0.0292, "percentage": 5.6 },
-			{ "material": "Alumínio", "value": 0.4591, "percentage": 88.5 },
-			{ "material": "Plástico", "value": 0.03, "percentage": 5.8 },
+			{
+				"material": "Papel",
+				"value": 0.0292,
+				"percentage": 5.6,
+				"descricaoFormula": "Fator conservador de 0,292 tCO2e/t, baseado em modelos ACV (WARM/EPA)."
+			},
+			{
+				"material": "Alumínio",
+				"value": 0.4591,
+				"percentage": 88.5,
+				"descricaoFormula": "Redução líquida de 9,183 kg CO2e/kg, alinhada a fatores de ACV setoriais."
+			},
+			{
+				"material": "Plástico",
+				"value": 0.03,
+				"percentage": 5.8,
+				"descricaoFormula": "Redução líquida típica para plásticos (ordem de grandeza ACV): 1,5 kg CO2e/kg ⇒ 0,0015 tCO2e/kg."
+			},
 			{ "material": "Vidro", "value": 0, "percentage": 0 }
 		],
+		"sobreFontes": "A redução de GEE (Gases de Efeito Estufa) é calculada com base em modelos de Análise de Ciclo de Vida (ACV), como o WARM da EPA, que consideram as emissões evitadas em toda a cadeia produtiva.",
 		"metadata": {
 			"key": "ghgReduction_tCO2e",
 			"name": "Redução de Gases de Efeito Estufa",

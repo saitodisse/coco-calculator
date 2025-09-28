@@ -30,6 +30,8 @@ export function MetricCard({ metric }: MetricCardProps) {
 
 	const hasReferences = metric.references && metric.references.length > 0;
 	const hasMetadata = metric.metadata;
+	const hasSobreFontes = metric.sobreFontes;
+	const hasDescricaoFormula = metric.sources?.some((s) => s.descricaoFormula);
 
 	return (
 		<Card className="w-full">
@@ -50,7 +52,7 @@ export function MetricCard({ metric }: MetricCardProps) {
 								</button>
 							</PopoverTrigger>
 							<PopoverContent className="w-80" align="end">
-								<div className="space-y-3">
+								<div className="space-y-4">
 									{hasMetadata && (
 										<div>
 											<h4 className="text-sm font-medium">
@@ -61,10 +63,53 @@ export function MetricCard({ metric }: MetricCardProps) {
 											</p>
 										</div>
 									)}
+									{hasSobreFontes && (
+										<div>
+											<h5 className="mb-2 text-xs font-medium">
+												Sobre as Fontes e Metodologia
+											</h5>
+											<p className="text-xs text-muted-foreground">
+												{metric.sobreFontes}
+											</p>
+										</div>
+									)}
+									{hasDescricaoFormula && (
+										<div>
+											<h5 className="mb-2 text-xs font-medium">
+												Fórmulas por Material
+											</h5>
+											<div className="space-y-2">
+												{metric.sources
+													?.filter(
+														(s) =>
+															s.descricaoFormula
+													)
+													.map((source) => (
+														<div
+															key={
+																source.material
+															}
+															className="border-l-2 border-primary/20 pl-3"
+														>
+															<div className="text-xs font-medium">
+																{
+																	source.material
+																}
+															</div>
+															<p className="text-xs text-muted-foreground">
+																{
+																	source.descricaoFormula
+																}
+															</p>
+														</div>
+													))}
+											</div>
+										</div>
+									)}
 									{hasReferences && (
 										<div>
 											<h5 className="mb-2 text-xs font-medium">
-												Fontes de Referência:
+												Fontes de Referência
 											</h5>
 											<div className="space-y-2">
 												{metric.references?.map(

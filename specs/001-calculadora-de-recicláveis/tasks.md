@@ -131,6 +131,21 @@
 - [x] **T041**: Remover a integração do `ReferencesSection` da `CalculatorPage.tsx`.
 - [x] **T042**: Atualizar os testes de integração para verificar se o popover abre e exibe o conteúdo correto.
 
+## Fase 3.12: Refatoração da Estrutura de Dados de Referências
+
+- [x] **T043**: Atualizar `src/lib/types.ts` para a nova estrutura de dados de referências.
+    - [x] **T043.1**: Adicionar `DefinicaoMetrica`, `DadosMetricaPorMaterial`, `DadosMetricaEquivalencia`.
+    - [x] **T043.2**: Adicionar `sobreFontes` a `ChartableMetric` e `descricaoFormula` a `MetricSource`.
+- [x] **T044**: Refatorar `src/lib/referencias_gerais.ts` para a nova estrutura `Métrica -> Material`.
+    - [x] **T044.1**: Inverter a estrutura de dados principal.
+    - [x] **T044.2**: Aninhar métricas de equivalência dentro das métricas primárias.
+- [x] **T045**: Atualizar `src/lib/calculator.ts` para consumir a nova estrutura de dados.
+    - [x] **T045.1**: Adaptar a lógica de cálculo para `referenciasPorMetrica`.
+    - [x] **T045.2**: Preencher os novos campos `sobreFontes` e `descricaoFormula` no objeto de retorno.
+- [x] **T046**: Atualizar `src/components/calculator/MetricCard.tsx` para exibir os novos dados.
+    - [x] **T046.1**: Renderizar `sobreFontes` no popover de informações.
+    - [x] **T046.2**: Renderizar `descricaoFormula` para cada material no popover.
+
 ## Dependências
 
 - **T001-T006** (Configuração) devem ser concluídas antes de todas as outras tarefas.
@@ -144,6 +159,7 @@
 - **T030-T033** (Refatoração de Tipos e Referências) são tarefas de melhoria arquitetural que podem ser executadas em paralelo após a conclusão do MVP.
 - **T034-T037** (Funcionalidades de Referências) são tarefas de melhoria de UX que podem ser executadas após a conclusão do MVP e da refatoração de tipos.
 - **T038-T042** (Refatoração para Popover) devem ser executadas após a conclusão da Fase 3.10.
+- **T043-T046** (Refatoração da Estrutura de Dados) devem ser executadas após a Fase 3.11.
 
 ## Exemplo Paralelo
 

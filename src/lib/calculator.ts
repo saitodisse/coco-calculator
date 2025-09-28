@@ -3,18 +3,14 @@ import type {
 	EnvironmentalSavings,
 	ChartableMetric,
 	MetricSource,
-	FonteReferencia,
 } from "./types";
 import { Material } from "./types";
-import {
-	referenciasGerais,
-	metricasEquivalencia,
-} from "./referencias_gerais";
+import { referenciasPorMetrica } from "./referencias_gerais";
 import { METRIC_METADATA } from "./metric-metadata";
 
 /**
  * Calculates the value for a given metric, material, and weight.
- * It uses the central `referenciasGerais` object as the source of truth for formulas.
+ * It uses the central `referenciasPorMetrica` object as the source of truth for formulas.
  * @param weightKg The weight of the material in kilograms.
  * @param material The material type.
  * @param metricKey The key of the metric to calculate.
@@ -25,51 +21,9 @@ function getMetricValue(
 	material: Material,
 	metricKey: string
 ): number {
-	const formula = referenciasGerais[material]?.dados?.[metricKey]?.formula;
+	const formula =
+		referenciasPorMetrica[metricKey]?.dadosPorMaterial?.[material]?.formula;
 	return formula ? formula({ input_kg: weightKg }) : 0;
-}
-
-/**
- * Calculates the total value for an equivalent metric based on user input.
- * It uses the `metricasEquivalencia` object for calculation formulas.
- * @param input The user's recycling input.
- * @param metricKey The key of the equivalent metric to calculate.
- * @returns The total calculated value for the equivalent metric.
- */
-function getEquivalentMetricValue(
-	input: RecyclingInput,
-	metricKey: string
-): number {
-	let total = 0;
-	if (input.paperInKg > 0) {
-		const formula =
-			metricasEquivalencia.papel?.[
-				metricKey as keyof typeof metricasEquivalencia.papel
-			]?.formula;
-		if (formula) total += formula({ input_kg: input.paperInKg });
-	}
-	if (input.aluminumInKg > 0) {
-		const formula =
-			metricasEquivalencia.aluminio?.[
-				metricKey as keyof typeof metricasEquivalencia.aluminio
-			]?.formula;
-		if (formula) total += formula({ input_kg: input.aluminumInKg });
-	}
-	if (input.plasticInKg > 0) {
-		const formula =
-			metricasEquivalencia.plastico?.[
-				metricKey as keyof typeof metricasEquivalencia.plastico
-			]?.formula;
-		if (formula) total += formula({ input_kg: input.plasticInKg });
-	}
-	if (input.glassInKg > 0) {
-		const formula =
-			metricasEquivalencia.vidro?.[
-				metricKey as keyof typeof metricasEquivalencia.vidro
-			]?.formula;
-		if (formula) total += formula({ input_kg: input.glassInKg });
-	}
-	return total;
 }
 
 /**
@@ -94,6 +48,7 @@ export function calculateSavings(input: RecyclingInput): EnvironmentalSavings {
 		Array<{ material: Material; value: number }>
 	> = {};
 	const totals: Record<string, number> = {};
+	const equivalentTotals: Record<string, number> = {};
 
 	for (const metric of primaryMetricsKeys) {
 		const metricKey = metric.key;
@@ -107,6 +62,30 @@ export function calculateSavings(input: RecyclingInput): EnvironmentalSavings {
 		);
 	}
 
+	// Calculate equivalent metrics
+	for (const m of materials) {
+		if (m.weight > 0) {
+			for (const metricKey in referenciasPorMetrica) {
+				const metricDef = referenciasPorMetrica[metricKey];
+				const materialData = metricDef?.dadosPorMaterial?.[m.name];
+				if (materialData?.equivalencias) {
+					for (const equivKey in materialData.equivalencias) {
+						if (!equivalentTotals[equivKey]) {
+							equivalentTotals[equivKey] = 0;
+						}
+						const formula =
+							materialData.equivalencias[equivKey]?.formula;
+						if (formula) {
+							equivalentTotals[equivKey] += formula({
+								input_kg: m.weight,
+							});
+						}
+					}
+				}
+			}
+		}
+	}
+
 	// Create chartable metrics with sources
 	const createChartableMetric = (
 		metricKey: string,
@@ -114,30 +93,22 @@ export function calculateSavings(input: RecyclingInput): EnvironmentalSavings {
 		metricContributions: Array<{ material: string; value: number }>
 	): ChartableMetric => {
 		const metadata = METRIC_METADATA[metricKey];
-		const sources: MetricSource[] = metricContributions.map((c) => ({
-			material: c.material as MetricSource["material"],
-			value: c.value,
-			percentage: total > 0 ? (c.value / total) * 100 : 0,
-		}));
+		const metricDef = referenciasPorMetrica[metricKey];
 
-		const references: FonteReferencia[] = [];
-		const referenceUrls = new Set<string>();
+		const sources: MetricSource[] = metricContributions.map((c) => {
+			const material = c.material as Material;
+			const descricaoFormula =
+				metricDef?.dadosPorMaterial?.[material]?.descricaoFormula;
+			return {
+				material,
+				value: c.value,
+				percentage: total > 0 ? (c.value / total) * 100 : 0,
+				descricaoFormula,
+			};
+		});
 
-		for (const contribution of metricContributions) {
-			if (contribution.value > 0) {
-				const fontes =
-					referenciasGerais[contribution.material as Material]
-						?.dados?.[metricKey]?.fontes;
-				if (fontes) {
-					for (const fonte of fontes) {
-						if (!referenceUrls.has(fonte.url)) {
-							references.push(fonte);
-							referenceUrls.add(fonte.url);
-						}
-					}
-				}
-			}
-		}
+		const references = metricDef?.fontes || [];
+		const sobreFontes = metricDef?.sobreFontes;
 
 		return {
 			label: metadata?.name || metricKey,
@@ -146,30 +117,9 @@ export function calculateSavings(input: RecyclingInput): EnvironmentalSavings {
 			sources,
 			metadata,
 			references,
+			sobreFontes,
 		};
 	};
-
-	// Calculate equivalent metrics
-	const equiv_home_energy_days = getEquivalentMetricValue(
-		input,
-		METRIC_METADATA.equiv_home_energy_days.key
-	);
-	const equiv_ev_km = getEquivalentMetricValue(
-		input,
-		METRIC_METADATA.equiv_ev_km.key
-	);
-	const equiv_phone_charges = getEquivalentMetricValue(
-		input,
-		METRIC_METADATA.equiv_phone_charges.key
-	);
-	const equiv_showers = getEquivalentMetricValue(
-		input,
-		METRIC_METADATA.equiv_showers.key
-	);
-	const equiv_gas_car_km = getEquivalentMetricValue(
-		input,
-		METRIC_METADATA.equiv_gas_car_km.key
-	);
 
 	return {
 		// Primary Metrics (Chartable)
@@ -220,11 +170,14 @@ export function calculateSavings(input: RecyclingInput): EnvironmentalSavings {
 		),
 
 		// Equivalent Metrics (Direct Values)
-		equiv_home_energy_days,
-		equiv_ev_km,
-		equiv_phone_charges,
-		equiv_showers,
-		equiv_gas_car_km,
+		equiv_home_energy_days:
+			equivalentTotals[METRIC_METADATA.equiv_home_energy_days.key] || 0,
+		equiv_ev_km: equivalentTotals[METRIC_METADATA.equiv_ev_km.key] || 0,
+		equiv_phone_charges:
+			equivalentTotals[METRIC_METADATA.equiv_phone_charges.key] || 0,
+		equiv_showers: equivalentTotals[METRIC_METADATA.equiv_showers.key] || 0,
+		equiv_gas_car_km:
+			equivalentTotals[METRIC_METADATA.equiv_gas_car_km.key] || 0,
 
 		// Financial Metrics (placeholders for now)
 		energySavings_BRL: 0,

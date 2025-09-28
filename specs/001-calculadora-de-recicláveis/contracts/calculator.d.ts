@@ -18,6 +18,8 @@ export interface MetricSource {
 	material: "Papel" | "Plástico" | "Vidro" | "Alumínio";
 	value: number;
 	percentage: number;
+	/** A descrição da fórmula específica para este material. */
+	descricaoFormula?: string;
 }
 
 /**
@@ -29,6 +31,8 @@ export interface ChartableMetric {
 	total: number;
 	unit: string;
 	sources: MetricSource[];
+	/** Descrição geral sobre as fontes e a metodologia da métrica. */
+	sobreFontes?: string;
 }
 
 /**

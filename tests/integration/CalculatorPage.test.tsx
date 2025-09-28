@@ -107,8 +107,8 @@ describe("CalculatorPage Integration Tests", () => {
 			// Wait for data to be loaded from URL
 			await waitFor(() => {
 				const paperSlider = screen.getByTestId("paper_slider");
-				const aluminumInput = screen.getByLabelText(
-					/alumínio/i
+				const aluminumInput = screen.getByTestId(
+					"aluminum_input"
 				) as HTMLInputElement;
 
 				// For sliders, we check that the component is rendered and accessible
