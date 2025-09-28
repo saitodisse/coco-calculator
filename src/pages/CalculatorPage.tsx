@@ -59,15 +59,6 @@ export function CalculatorPage() {
 						<ModeToggle />
 					</div>
 				</header>
-				<div className="space-y-2 text-center">
-					<h1 className="text-4xl font-bold tracking-tight">
-						Calculadora de Recicláveis
-					</h1>
-					<p className="mx-auto max-w-2xl text-xl text-muted-foreground">
-						Descubra o impacto ambiental positivo da reciclagem dos
-						seus materiais
-					</p>
-				</div>
 
 				{/* Input Form */}
 				<InputForm inputs={inputs} onInputChange={updateInput} />

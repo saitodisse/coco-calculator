@@ -1,1 +1,1 @@
-implemente specs/00X-feature/plan.md
+/implement specs/00X-feature/plan.md
