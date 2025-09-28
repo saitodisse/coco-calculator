@@ -25,11 +25,12 @@ export function InputForm({ inputs, onInputChange }: InputFormProps) {
 	return (
 		<Card className="mx-auto w-full">
 			<CardHeader>
-				<CardTitle className="text-center text-2xl font-bold">
+				<CardTitle className="text-center text-3xl font-bold sm:text-4xl">
 					Calculadora de Recicláveis
 				</CardTitle>
 				<p className="text-center text-muted-foreground">
-					Digite a quantidade (em kg) de cada material reciclado
+					Preencha a quantidade (em kg) de cada material reciclado
+					para se ter uma ideia do quanto você pode economizar.
 				</p>
 			</CardHeader>
 			<CardContent className="space-y-6">

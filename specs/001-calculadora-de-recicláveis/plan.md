@@ -219,6 +219,25 @@ A funcionalidade de referências foi implementada com os seguintes componentes:
 - **Rastreabilidade**: Cada métrica tem suas fontes claramente identificadas
 - **Acessibilidade**: Links diretos para fontes originais facilitam verificação
 
+## Fase 8: Refatoração da Funcionalidade de Referências para Popover
+
+_Esta fase descreve a alteração da exibição de referências de uma seção na página para um popover em cada card de métrica._
+
+### Mudanças na Implementação
+
+A funcionalidade de referências será refatorada para melhorar a usabilidade, apresentando as informações em um popover contextual.
+
+1.  **Componente Popover**: Em vez de uma `ReferencesSection`, um componente de popover será usado dentro de cada `MetricCard`.
+2.  **Conteúdo do Popover**: O popover exibirá informações detalhadas da fonte, incluindo `descricaoFormula`, `sobreFontes` e a lista de `fontes` com links e citações.
+3.  **Remoção da Seção**: O componente `ReferencesSection.tsx` e sua renderização na `CalculatorPage.tsx` serão removidos.
+4.  **Experiência do Usuário**: A mudança elimina a necessidade de rolagem, mantendo o usuário no contexto da métrica que está visualizando.
+
+### Arquivos a Serem Modificados
+
+- `src/components/calculator/MetricCard.tsx` (atualizado para incluir o popover)
+- `src/pages/CalculatorPage.tsx` (atualizado para remover a `ReferencesSection`)
+- `src/components/calculator/ReferencesSection.tsx` (removido)
+
 ## Rastreamento de Complexidade
 
 _Preencher SOMENTE se a Verificação da Constituição tiver violações que devem ser justificadas_
@@ -241,6 +260,7 @@ _Esta lista de verificação é atualizada durante o fluxo de execução_
 - [x] Fase 5: Validação aprovada
 - [x] Fase 6: Refatoração de tipos e referências completa
 - [x] Fase 7: Implementação de funcionalidades de referências completa
+- [x] Fase 8: Refatoração da funcionalidade de referências para Popover
 
 **Status do Portão**:
 

@@ -9,7 +9,7 @@ import { Material } from "./types";
 import {
 	referenciasGerais,
 	metricasEquivalencia,
-} from "../../referencias/referencias_gerais";
+} from "./referencias_gerais";
 import { METRIC_METADATA } from "./metric-metadata";
 
 /**

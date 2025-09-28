@@ -52,24 +52,24 @@
 
 ## Fase 3.7: Novas Features (Pós-MVP)
 
-- [ ] **T023**: Adicionar componentes shadcn/ui para novas features: `npx shadcn-ui@latest add toggle-group toggle table dropdown-menu button`.
-- [ ] **T024**: Instalar a dependência `nuqs` para gerenciamento de estado na URL: `npm install nuqs`.
-- [ ] **T025**: Implementar funcionalidade de modo escuro (dark mode).
-    - [ ] **T025.1**: Criar o `ThemeProvider` em `src/components/theme-provider.tsx`.
-    - [ ] **T025.2**: Envolver a aplicação com o `ThemeProvider` em `src/App.tsx`.
-    - [ ] **T025.3**: Criar o componente `ModeToggle` em `src/components/mode-toggle.tsx`.
-    - [ ] **T025.4**: Adicionar o `ModeToggle` ao cabeçalho da `CalculatorPage`.
-- [ ] **T026**: Refatorar o gerenciamento de estado para usar `nuqs`.
-    - [ ] **T026.1**: Atualizar o hook `useRecyclingCalculator` para usar `useQueryStates` para as entradas do formulário.
-    - [ ] **T026.2**: Remover completamente o uso de `localStorage` do hook.
-    - [ ] **T026.3**: Remover o estado de carregamento (`isLoaded`) da `CalculatorPage`.
-- [ ] **T027**: Implementar modos de visualização de resultados.
-    - [ ] **T027.1**: Adicionar um seletor de modo de visualização (`ToggleGroup`) na `CalculatorPage`.
-    - [ ] **T027.2**: Armazenar o modo de visualização selecionado na URL usando `nuqs`.
-    - [ ] **T027.3**: Refatorar a visualização de cards existente para um componente `CardsView.tsx`.
-    - [ ] **T027.4**: Criar um novo componente `TableView.tsx` para exibir os resultados em uma tabela.
-    - [ ] **T027.5**: Criar um componente placeholder `DashboardView.tsx`.
-    - [ ] **T027.6**: Renderizar condicionalmente a visualização apropriada na `CalculatorPage`.
+- [x] **T023**: Adicionar componentes shadcn/ui para novas features: `npx shadcn@latest add toggle-group toggle table dropdown-menu button`.
+- [x] **T024**: Instalar a dependência `nuqs` para gerenciamento de estado na URL: `npm install nuqs`.
+- [x] **T025**: Implementar funcionalidade de modo escuro (dark mode).
+    - [x] **T025.1**: Criar o `ThemeProvider` em `src/components/theme-provider.tsx`.
+    - [x] **T025.2**: Envolver a aplicação com o `ThemeProvider` em `src/App.tsx`.
+    - [x] **T025.3**: Criar o componente `ModeToggle` em `src/components/mode-toggle.tsx`.
+    - [x] **T025.4**: Adicionar o `ModeToggle` ao cabeçalho da `CalculatorPage`.
+- [x] **T026**: Refatorar o gerenciamento de estado para usar `nuqs`.
+    - [x] **T026.1**: Atualizar o hook `useRecyclingCalculator` para usar `useQueryStates` para as entradas do formulário.
+    - [x] **T026.2**: Remover completamente o uso de `localStorage` do hook.
+    - [x] **T026.3**: Remover o estado de carregamento (`isLoaded`) da `CalculatorPage`.
+- [x] **T027**: Implementar modos de visualização de resultados.
+    - [x] **T027.1**: Adicionar um seletor de modo de visualização (`ToggleGroup`) na `CalculatorPage`.
+    - [x] **T027.2**: Armazenar o modo de visualização selecionado na URL usando `nuqs`.
+    - [x] **T027.3**: Refatorar a visualização de cards existente para um componente `CardsView.tsx`.
+    - [x] **T027.4**: Criar um novo componente `TableView.tsx` para exibir os resultados em uma tabela.
+    - [x] **T027.5**: Criar um componente placeholder `DashboardView.tsx`.
+    - [x] **T027.6**: Renderizar condicionalmente a visualização apropriada na `CalculatorPage`.
 - [x] **T028**: Atualizar a documentação (`spec.md`, `plan.md`, `tasks.md`) para refletir todas as novas features e mudanças.
 
 ## Fase 3.8: Documentação
@@ -121,6 +121,16 @@
     - [x] **T037.3**: Verificar se referências são exibidas corretamente.
     - [x] **T037.4**: Verificar se links externos abrem em nova aba.
 
+## Fase 3.11: Refatorar Referências para Popover
+
+- [x] **T038**: Adicionar o componente `Popover` do shadcn/ui: `npx shadcn@latest add popover`.
+- [x] **T039**: Atualizar `MetricCard.tsx` para usar o componente `Popover` em vez do link de scroll.
+    - [x] **T039.1**: O gatilho do popover será o link "Referências".
+    - [x] **T039.2**: O conteúdo do popover deve ser estilizado e exibir `descricaoFormula`, `sobreFontes` e a lista de `fontes` da métrica.
+- [x] **T040**: Remover o componente `ReferencesSection.tsx` do projeto.
+- [x] **T041**: Remover a integração do `ReferencesSection` da `CalculatorPage.tsx`.
+- [x] **T042**: Atualizar os testes de integração para verificar se o popover abre e exibe o conteúdo correto.
+
 ## Dependências
 
 - **T001-T006** (Configuração) devem ser concluídas antes de todas as outras tarefas.
@@ -133,6 +143,7 @@
 - **T029** é uma tarefa de documentação e pode ser trabalhada independentemente das novas features de UI.
 - **T030-T033** (Refatoração de Tipos e Referências) são tarefas de melhoria arquitetural que podem ser executadas em paralelo após a conclusão do MVP.
 - **T034-T037** (Funcionalidades de Referências) são tarefas de melhoria de UX que podem ser executadas após a conclusão do MVP e da refatoração de tipos.
+- **T038-T042** (Refatoração para Popover) devem ser executadas após a conclusão da Fase 3.10.
 
 ## Exemplo Paralelo
 

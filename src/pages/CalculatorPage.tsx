@@ -1,5 +1,4 @@
 import { InputForm } from "@/components/calculator/InputForm";
-import { ResultsDisplay } from "@/components/calculator/ResultsDisplay";
 import { MetricChart } from "@/components/charts/MetricChart";
 import { useRecyclingCalculator } from "@/hooks/useRecyclingCalculator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,7 +10,6 @@ import type { ViewMode } from "@/lib/types";
 import { CardsView } from "@/components/calculator/CardsView";
 import { DashboardView } from "@/components/calculator/DashboardView";
 import { TableView } from "@/components/calculator/TableView";
-import { ReferencesSection } from "@/components/calculator/ReferencesSection";
 
 const viewModes = ["dashboard", "cards", "table"] as const;
 
@@ -63,18 +61,13 @@ export function CalculatorPage() {
 				{/* Input Form */}
 				<InputForm inputs={inputs} onInputChange={updateInput} />
 
-				{/* Results */}
-				<ResultsDisplay savings={savings} />
+				{viewMode === "table" && <TableView savings={savings} />}
 
-				{/* Views Section */}
+				{viewMode === "cards" && <CardsView savings={savings} />}
+
 				{viewMode === "dashboard" && (
 					<DashboardView savings={savings} />
 				)}
-				{viewMode === "cards" && <CardsView savings={savings} />}
-				{viewMode === "table" && <TableView savings={savings} />}
-
-				{/* References Section */}
-				<ReferencesSection savings={savings} />
 
 				{/* Footer */}
 				<div className="border-t pt-8 text-center text-sm text-muted-foreground">
@@ -84,6 +77,38 @@ export function CalculatorPage() {
 						<br />
 						Os valores são aproximados e podem variar conforme a
 						região e o processo de reciclagem.
+					</p>
+					<p>
+						Este site é um projeto open source e está disponível no{" "}
+						<a
+							href="https://github.com/saitodisse/coco-calculator"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="underline hover:text-primary"
+						>
+							GitHub
+						</a>
+						.
+					</p>
+					<p>
+						Feito por{" "}
+						<a
+							href="https://github.com/saitodisse"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="underline hover:text-primary"
+						>
+							Julio M Saito
+						</a>{" "}
+						para{" "}
+						<a
+							href="https://www.instagram.com/cocoecia_reciclagem"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="underline hover:text-primary"
+						>
+							COCO & CIA | COOPERATIVA
+						</a>
 					</p>
 				</div>
 			</div>

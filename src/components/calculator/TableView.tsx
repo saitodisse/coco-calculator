@@ -62,16 +62,13 @@ export function TableView({ savings }: TableViewProps) {
 			</h2>
 
 			{/* Environmental Metrics Table */}
-			<div className="rounded-md border">
+			<div className="flex flex-col justify-between gap-10 sm:flex-row">
 				<Table>
 					<TableHeader>
 						<TableRow>
 							<TableHead>Métrica Ambiental</TableHead>
 							<TableHead className="text-right">
 								Economia Total
-							</TableHead>
-							<TableHead className="text-right">
-								Unidade
 							</TableHead>
 						</TableRow>
 					</TableHeader>
@@ -82,27 +79,20 @@ export function TableView({ savings }: TableViewProps) {
 									{metric.label}
 								</TableCell>
 								<TableCell className="text-right">
-									{metric.total.toFixed(3)}
-								</TableCell>
-								<TableCell className="text-right">
+									{Intl.NumberFormat("pt-BR").format(
+										metric.total
+									)}{" "}
 									{metric.unit}
 								</TableCell>
 							</TableRow>
 						))}
 					</TableBody>
 				</Table>
-			</div>
-
-			{/* Equivalent Metrics Table */}
-			<div className="rounded-md border">
 				<Table>
 					<TableHeader>
 						<TableRow>
 							<TableHead>Equivalência Prática</TableHead>
 							<TableHead className="text-right">Valor</TableHead>
-							<TableHead className="text-right">
-								Unidade
-							</TableHead>
 						</TableRow>
 					</TableHeader>
 					<TableBody>
@@ -113,10 +103,10 @@ export function TableView({ savings }: TableViewProps) {
 								</TableCell>
 								<TableCell className="text-right">
 									{typeof metric.value === "number"
-										? metric.value.toFixed(0)
-										: "0"}
-								</TableCell>
-								<TableCell className="text-right">
+										? Intl.NumberFormat("pt-BR").format(
+												metric.value
+											)
+										: "0"}{" "}
 									{metric.unit}
 								</TableCell>
 							</TableRow>

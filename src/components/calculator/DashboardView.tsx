@@ -35,34 +35,6 @@ export function DashboardView({ savings }: DashboardViewProps) {
 					))}
 				</div>
 			</div>
-
-			{/* Seção de Métricas de Equivalência */}
-			<div>
-				<h2 className="mb-4 text-center text-2xl font-bold">
-					Equivalências Notáveis
-				</h2>
-				<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-					{Object.entries(equivalentMetrics).map(
-						([key, metadata]) => {
-							const value = savings[
-								key as keyof typeof savings
-							] as number;
-							return (
-								<MetricCard
-									key={key}
-									metric={{
-										label: metadata.name,
-										total: value,
-										unit: metadata.unit,
-										sources: [],
-										metadata: metadata,
-									}}
-								/>
-							);
-						}
-					)}
-				</div>
-			</div>
 		</div>
 	);
 }
